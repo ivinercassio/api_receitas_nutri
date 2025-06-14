@@ -1,18 +1,18 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
+import com.ivinercassio.ReceitasNutriApi.entity.Paciente;
+
 public class PacienteDTO {
     private Long id;
     private String nome;
     private String email;
-    private String senha;
 
     public PacienteDTO() {}
 
-    public PacienteDTO(Long id, String nome, String email, String senha) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
+    public PacienteDTO(Paciente paciente) {
+        this.id = paciente.getId();
+        this.nome = paciente.getNome();
+        this.email = paciente.getEmail();
     }
 
     public Long getId() {
@@ -25,9 +25,5 @@ public class PacienteDTO {
 
     public String getNome() {
         return nome;
-    }
-
-    public String getSenha() {
-        return senha;
     }
 }

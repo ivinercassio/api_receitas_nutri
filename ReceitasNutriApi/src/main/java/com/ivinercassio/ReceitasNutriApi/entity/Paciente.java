@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Paciente {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
+    @Column(name = "paciente_id")
     private Long id;
 
     @Column(nullable = false, length = 100)
@@ -30,6 +30,10 @@ public class Paciente {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {

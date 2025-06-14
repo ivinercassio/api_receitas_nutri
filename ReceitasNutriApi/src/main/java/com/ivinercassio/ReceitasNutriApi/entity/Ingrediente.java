@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 public class Ingrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ingrediente_id")
     private Long id;
 
     @Column(nullable = false, length = 100)

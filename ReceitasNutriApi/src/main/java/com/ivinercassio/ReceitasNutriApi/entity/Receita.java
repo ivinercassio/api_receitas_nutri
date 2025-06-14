@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,10 +14,12 @@ import jakarta.persistence.Table;
 public class Receita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "receita_id")
     private Long id;
 
-    @Column(nullable = false)
-    private Nutricionista nutricionista; // relacionamento
+    @ManyToOne
+    @JoinColumn(name = "nutricionista_id") // coluna da tabela que referencia a nutricionista
+    private Nutricionista nutricionista; 
 
     @Column(nullable = false, length = 100)
     private String titulo;

@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Nutricionista {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
+    @Column(name = "nutricionista_id")
     private Long id;
 
     @Column(nullable = false, length = 100)

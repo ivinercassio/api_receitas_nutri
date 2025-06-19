@@ -28,7 +28,7 @@ public class Nutricionista {
     private String foto;
 
     @Column(nullable = true)
-    private String intagram;
+    private String instagram;
 
     @Column(nullable = true)
     private String emailContato;
@@ -38,12 +38,12 @@ public class Nutricionista {
 
     public Nutricionista() {}
 
-    public Nutricionista(String nome, String email, String senha, String foto, String intagram, String emailContato, String telefone) {
+    public Nutricionista(String nome, String email, String senha, String foto, String instagram, String emailContato, String telefone) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.foto = foto;
-        this.intagram = intagram;
+        this.instagram = instagram;
         this.emailContato = emailContato;
         this.telefone = telefone;
     }
@@ -64,8 +64,8 @@ public class Nutricionista {
         return foto;
     }
 
-    public String getIntagram() {
-        return intagram;
+    public String getInstagram() {
+        return instagram;
     }
 
     public String getNome() {
@@ -115,8 +115,8 @@ public class Nutricionista {
         this.foto = foto;
     }
 
-    public void setIntagram(String intagram) {
-        this.intagram = intagram;
+    public void setIntagram(String instagram) {
+        this.instagram = instagram;
     }
 
     public void setTelefone(String telefone) {

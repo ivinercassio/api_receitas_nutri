@@ -6,7 +6,7 @@ public class NutricionistaDTO {
     private Long id;
     private String nome;
     private String email;
-    private String intagram;
+    private String instagram;
     private String emailContato;
     private String telefone;
 
@@ -16,7 +16,7 @@ public class NutricionistaDTO {
         this.id = nutricionista.getId();
         this.nome = nutricionista.getNome();
         this.email = nutricionista.getEmail();
-        this.intagram = nutricionista.getIntagram();
+        this.instagram = nutricionista.getInstagram();
         this.emailContato = nutricionista.getEmailContato();
         this.telefone = nutricionista.getTelefone();
     }
@@ -33,8 +33,8 @@ public class NutricionistaDTO {
         return emailContato;
     }
 
-    public String getIntagram() {
-        return intagram;
+    public String getInstagram() {
+        return instagram;
     }
 
     public String getNome() {

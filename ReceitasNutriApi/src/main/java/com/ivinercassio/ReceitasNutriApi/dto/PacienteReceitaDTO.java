@@ -1,8 +1,8 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
-import com.ivinercassio.ReceitasNutriApi.entity.Paciente;
-import com.ivinercassio.ReceitasNutriApi.entity.PacienteReceita;
-import com.ivinercassio.ReceitasNutriApi.entity.Receita;
+import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
+import com.ivinercassio.ReceitasNutriApi.entities.PacienteReceita;
+import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 public class PacienteReceitaDTO {
     
     private Long id;

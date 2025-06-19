@@ -1,6 +1,6 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
-import com.ivinercassio.ReceitasNutriApi.entity.Paciente;
+import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
 
 public class PacienteDTO {
     private Long id;

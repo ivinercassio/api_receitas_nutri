@@ -1,8 +1,8 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
-import com.ivinercassio.ReceitasNutriApi.entity.Ingrediente;
-import com.ivinercassio.ReceitasNutriApi.entity.Receita;
-import com.ivinercassio.ReceitasNutriApi.entity.ReceitaIngrediente;
+import com.ivinercassio.ReceitasNutriApi.entities.Ingrediente;
+import com.ivinercassio.ReceitasNutriApi.entities.Receita;
+import com.ivinercassio.ReceitasNutriApi.entities.ReceitaIngrediente;
 
 public class ReceitaIngredienteDTO {
     

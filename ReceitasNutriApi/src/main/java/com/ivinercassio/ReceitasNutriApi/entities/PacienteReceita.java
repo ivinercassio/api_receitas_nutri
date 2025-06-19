@@ -1,4 +1,4 @@
-package com.ivinercassio.ReceitasNutriApi.entity;
+package com.ivinercassio.ReceitasNutriApi.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,8 +1,8 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
-import com.ivinercassio.ReceitasNutriApi.entity.HorarioEnum;
-import com.ivinercassio.ReceitasNutriApi.entity.Nutricionista;
-import com.ivinercassio.ReceitasNutriApi.entity.Receita;
+import com.ivinercassio.ReceitasNutriApi.entities.HorarioEnum;
+import com.ivinercassio.ReceitasNutriApi.entities.Nutricionista;
+import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 
 public class ReceitaDTO {
     private Long id;

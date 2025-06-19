@@ -1,6 +1,6 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
-import com.ivinercassio.ReceitasNutriApi.entity.Ingrediente;
+import com.ivinercassio.ReceitasNutriApi.entities.Ingrediente;
 
 public class IngredienteDTO {
     private Long id;

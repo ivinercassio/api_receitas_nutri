@@ -32,9 +32,7 @@ public class ReceitaService {
 
     private void adicionarIngredientes(Receita receita, List<ReceitaIngredienteDTO> ingredientesDTO) {
         for (ReceitaIngredienteDTO dto : ingredientesDTO) {
-            Ingrediente ingrediente = ingredienteService.buscarPorId(dto.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Ingrediente não encontrado"));
-            
+            Ingrediente ingrediente = ingredienteService.buscarPorId(dto.getId());
             ReceitaIngrediente ri = new ReceitaIngrediente();
             ri.setReceita(receita);
             ri.setQuantidade(dto.getQuantidade());
@@ -47,11 +45,9 @@ public class ReceitaService {
         Receita receita = receitaRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Receita não encontrada"));
         
-        // Atualiza propriedades básicas
-        receita.setTitulo(receitaAtualizada.getTitulo());
-        // ... atualizar outros campos
         
-        // Atualiza ingredientes
+        receita.setTitulo(receitaAtualizada.getTitulo());
+        
         receitaIngredienteRepository.deleteByReceitaId(id);
         adicionarIngredientes(receita, novosIngredientes);
         

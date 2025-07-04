@@ -24,7 +24,8 @@ public class NutricionistaService {
     }
 
     public NutricionistaDTO findById (Long id){
-        Nutricionista nutricionista = nutricionistaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Nutricionista não encontrado com ID: " + id));
+        Nutricionista nutricionista = nutricionistaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Nutricionista não encontrado com ID: " + id));
         return new NutricionistaDTO(nutricionista);
     }
 

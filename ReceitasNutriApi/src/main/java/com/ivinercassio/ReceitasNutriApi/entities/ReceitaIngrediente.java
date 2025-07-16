@@ -45,7 +45,7 @@ public class ReceitaIngrediente {
         return ingrediente;
     }
 
-    public void setPaciente(Ingrediente ingrediente) {
+    public void setIngrediente(Ingrediente ingrediente) {
         if (ingrediente == null) 
             throw new IllegalArgumentException("Ingrediente não deve ser nulo ou vazio.");
         this.ingrediente = ingrediente;

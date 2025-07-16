@@ -21,7 +21,7 @@ public class Consumo {
     @JoinColumn(name = "paciente_id") // coluna da tabela que referencia o paciente
     private Paciente paciente;
 
-    @Column(nullable = false)
+    @Column(name = "datahora_consumo", nullable = false)
     private String dataHora;
     // SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 
@@ -42,5 +42,13 @@ public class Consumo {
 
     public String getDataHora() {
         return dataHora;
+    }
+
+    public void setDataHora(String dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 }

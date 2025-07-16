@@ -1,7 +1,7 @@
 -- PACIENTE
-INSERT INTO tb_paciente (nome, email, senha) VALUES ('Lucas Almeida', 'lucas.almeida@gmail.com', '123456');
-INSERT INTO tb_paciente (nome, email, senha) VALUES ('Mariana Santos', 'mariana.santos@yahoo.com', '123456');
-INSERT INTO tb_paciente (nome, email, senha) VALUES ('Fernando Costa', 'fernando.costa@hotmail.com', '123456');
+INSERT INTO tb_paciente (nome, email, senha) VALUES ('Lucas Almeida', 'lucas.almeida@person.com', '123456');
+INSERT INTO tb_paciente (nome, email, senha) VALUES ('Mariana Santos', 'mariana.santos@person.com', '123456');
+INSERT INTO tb_paciente (nome, email, senha) VALUES ('Fernando Costa', 'fernando.costa@person.com', '123456');
 
 -- NUTRICIONISTA
 INSERT INTO tb_nutricionista (nome, email, senha, foto, instagram, email_contato, telefone) VALUES ('Dra. Ana Paula', 'ana.paula@nutri.com', '123456', NULL, 'nutri.anapaula', 'contato@nutri.com', 11999998888);
@@ -25,6 +25,9 @@ INSERT INTO tb_receita_ingrediente (receita_id, ingrediente_id, quantidade) VALU
 
 -- PACIENTE_RECEITA
 INSERT INTO tb_paciente_receita (paciente_id, receita_id, data_favoritacao) VALUES (1, 1, '2025-07-10'), (2, 2, '2025-07-11'), (3, 3, '2025-07-12'), (2, 1, '2025-07-13'), (3, 2, '2025-07-14'); 
+
+-- CONSUMO 
+INSERT INTO tb_consumo (paciente_id, datahora_consumo) VALUES (1, '2025-07-14 08:30:00'), (2, '2025-07-14 12:15:00'), (3, '2025-07-14 19:45:00'); 
 
 
 

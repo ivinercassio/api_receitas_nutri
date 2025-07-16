@@ -1,12 +1,11 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
 import com.ivinercassio.ReceitasNutriApi.entities.HorarioEnum;
-import com.ivinercassio.ReceitasNutriApi.entities.Nutricionista;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 
 public class ReceitaDTO {
     private Long id;
-    private Nutricionista nutricionista; 
+    private NutricionistaDTO nutricionista; 
     private String titulo;
     private int rendimento;
     private double tempo;
@@ -16,7 +15,7 @@ public class ReceitaDTO {
 
     public ReceitaDTO(Receita receita) {
         this.id = receita.getId();
-        this.nutricionista = receita.getNutricionista();
+        this.nutricionista = new NutricionistaDTO(receita.getNutricionista());
         this.titulo = receita.getTitulo();
         this.rendimento = receita.getRendimento();
         this.tempo = receita.getTempo();
@@ -27,11 +26,11 @@ public class ReceitaDTO {
         return id;
     }
 
-    public Nutricionista getNutricionista() {
+    public NutricionistaDTO getNutricionistaDTO() {
         return nutricionista;
     }
 
-    public void setNutricionista(Nutricionista nutricionista) {
+    public void setNutricionistaDTO(NutricionistaDTO nutricionista) {
         if (nutricionista == null)
             throw new IllegalArgumentException("Nutricionista não deve ser nula ou vazia");
         this.nutricionista = nutricionista;

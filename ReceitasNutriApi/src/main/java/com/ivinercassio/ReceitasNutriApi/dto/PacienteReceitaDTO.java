@@ -1,21 +1,19 @@
 package com.ivinercassio.ReceitasNutriApi.dto;
 
-import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
 import com.ivinercassio.ReceitasNutriApi.entities.PacienteReceita;
-import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 public class PacienteReceitaDTO {
     
     private Long id;
-    private Paciente paciente;
-    private Receita receita;
+    private PacienteDTO paciente;
+    private ReceitaDTO receita;
     private String dataFavoritacao;
 
     public PacienteReceitaDTO() {}
 
     public PacienteReceitaDTO(PacienteReceita pacienteReceita) {
         this.id = pacienteReceita.getId();
-        this.paciente = pacienteReceita.getPaciente();
-        this.receita = pacienteReceita.getReceita();
+        this.paciente = new PacienteDTO(pacienteReceita.getPaciente());
+        this.receita = new ReceitaDTO(pacienteReceita.getReceita());
         this.dataFavoritacao = pacienteReceita.getDataFavoritacao();
     }
 
@@ -23,21 +21,21 @@ public class PacienteReceitaDTO {
         return id;
     }
 
-    public Paciente getPaciente() {
+    public PacienteDTO getPacienteDTO() {
         return paciente;
     }
 
-    public void setPaciente(Paciente paciente) {
+    public void setPacienteDTO(PacienteDTO paciente) {
         if (paciente == null) 
             throw new IllegalArgumentException("Paciente não deve ser nulo ou vazio.");
         this.paciente = paciente;
     }
 
-    public Receita getReceita() {
+    public ReceitaDTO getReceitaDTO() {
         return receita;
     }
 
-    public void setReceita(Receita receita) {
+    public void setReceitaDTO(ReceitaDTO receita) {
         if (receita == null) 
             throw new IllegalArgumentException("Receita não deve ser nulo ou vazio.");
         this.receita = receita;

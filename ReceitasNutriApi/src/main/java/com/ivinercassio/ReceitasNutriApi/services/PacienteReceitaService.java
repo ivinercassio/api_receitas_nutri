@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTO;
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
+import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
 import com.ivinercassio.ReceitasNutriApi.entities.PacienteReceita;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 import com.ivinercassio.ReceitasNutriApi.repositories.PacienteReceitaRepository;
@@ -33,9 +34,20 @@ public class PacienteReceitaService {
 
     // relacionamento estabelecido e enviado pelo servico cliente
     public PacienteReceitaDTO insert(PacienteReceitaDTO pacienteReceitaDTO) {
+        Paciente paciente = new Paciente();
+        paciente.setNome(pacienteReceitaDTO.getPacienteDTO().getNome());
+        paciente.setEmail(pacienteReceitaDTO.getPacienteDTO().getEmail());
+
+        Receita receita = new Receita();
+        receita.setTitulo(pacienteReceitaDTO.getReceitaDTO().getTitulo());
+        receita.setTempo(pacienteReceitaDTO.getReceitaDTO().getTempo());
+        receita.setRendimento(pacienteReceitaDTO.getReceitaDTO().getRendimento());
+        receita.setNutricionista(null); // TRATAR ISSO
+        receita.setHorario(pacienteReceitaDTO.getReceitaDTO().getHorario());
+
         PacienteReceita nova = new PacienteReceita();
-        nova.setPaciente(pacienteReceitaDTO.getPaciente());
-        nova.setReceita(pacienteReceitaDTO.getReceita());
+        nova.setPaciente(paciente);
+        nova.setReceita(receita);
         nova.setDataFavoritacao(pacienteReceitaDTO.getDataFavoritacao());
 
         nova = pacienteReceitaRepository.save(nova);
@@ -46,12 +58,22 @@ public class PacienteReceitaService {
         PacienteReceita registro = pacienteReceitaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("PacienteReceita não encontrado com ID: " + id));
 
-        PacienteReceita nova = new PacienteReceita();
-        nova.setPaciente(pacienteReceitaDTO.getPaciente());
-        nova.setReceita(pacienteReceitaDTO.getReceita());
-        nova.setDataFavoritacao(pacienteReceitaDTO.getDataFavoritacao());
+        Paciente paciente = new Paciente();
+        paciente.setNome(pacienteReceitaDTO.getPacienteDTO().getNome());
+        paciente.setEmail(pacienteReceitaDTO.getPacienteDTO().getEmail());
 
-        nova = pacienteReceitaRepository.save(registro);
+        Receita receita = new Receita();
+        receita.setTitulo(pacienteReceitaDTO.getReceitaDTO().getTitulo());
+        receita.setTempo(pacienteReceitaDTO.getReceitaDTO().getTempo());
+        receita.setRendimento(pacienteReceitaDTO.getReceitaDTO().getRendimento());
+        receita.setNutricionista(null); // TRATAR ISSO
+        receita.setHorario(pacienteReceitaDTO.getReceitaDTO().getHorario());
+
+        registro.setPaciente(paciente);
+        registro.setReceita(receita);
+        registro.setDataFavoritacao(pacienteReceitaDTO.getDataFavoritacao());
+
+        PacienteReceita nova = pacienteReceitaRepository.save(registro);
         return new PacienteReceitaDTO(nova);
     }
 
@@ -63,6 +85,7 @@ public class PacienteReceitaService {
         pacienteReceitaRepository.deleteById(id);;
     }
     
+    // AINDA NAO FUNCIONA
     public List<ReceitaDTO> buscarReceitasPorPaciente(Long id) {
         List<Receita> list = pacienteReceitaRepository.findAllByPacienteId(id);
         return list.stream().map(ReceitaDTO::new).toList();

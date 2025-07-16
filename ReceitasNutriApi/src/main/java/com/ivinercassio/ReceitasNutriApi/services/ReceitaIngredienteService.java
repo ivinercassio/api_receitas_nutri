@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTO;
+import com.ivinercassio.ReceitasNutriApi.entities.Ingrediente;
+import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 import com.ivinercassio.ReceitasNutriApi.entities.ReceitaIngrediente;
 import com.ivinercassio.ReceitasNutriApi.repositories.ReceitaIngredienteRepository;
 
@@ -29,9 +31,20 @@ public class ReceitaIngredienteService {
     }
 
     public ReceitaIngredienteDTO insert(ReceitaIngredienteDTO receitaIngredienteDTO) {
+        Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setDescricao(receitaIngredienteDTO.getIngredienteDTO().getDescricao());
+        ingrediente.setCalorias(receitaIngredienteDTO.getIngredienteDTO().getCalorias());
+
+        Receita receita = new Receita();
+        receita.setTitulo(receitaIngredienteDTO.getReceitaDTO().getTitulo());
+        receita.setTempo(receitaIngredienteDTO.getReceitaDTO().getTempo());
+        receita.setRendimento(receitaIngredienteDTO.getReceitaDTO().getRendimento());
+        receita.setNutricionista(null); // TRATAR ISSO
+        receita.setHorario(receitaIngredienteDTO.getReceitaDTO().getHorario());
+
         ReceitaIngrediente nova = new ReceitaIngrediente();
-        nova.setIngrediente(receitaIngredienteDTO.getIngrediente());
-        nova.setReceita(receitaIngredienteDTO.getReceita());
+        nova.setIngrediente(ingrediente);
+        nova.setReceita(receita);
         nova.setQuantidade(receitaIngredienteDTO.getQuantidade());
 
         nova = receitaIngredienteRepository.save(nova);
@@ -42,8 +55,19 @@ public class ReceitaIngredienteService {
         ReceitaIngrediente registro = receitaIngredienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("ReceitaIngrediente não encontrado com ID: " + id));
 
-        registro.setIngrediente(receitaIngredienteDTO.getIngrediente());
-        registro.setReceita(receitaIngredienteDTO.getReceita());
+        Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setDescricao(receitaIngredienteDTO.getIngredienteDTO().getDescricao());
+        ingrediente.setCalorias(receitaIngredienteDTO.getIngredienteDTO().getCalorias());
+
+        Receita receita = new Receita();
+        receita.setTitulo(receitaIngredienteDTO.getReceitaDTO().getTitulo());
+        receita.setTempo(receitaIngredienteDTO.getReceitaDTO().getTempo());
+        receita.setRendimento(receitaIngredienteDTO.getReceitaDTO().getRendimento());
+        receita.setNutricionista(null); // TRATAR ISSO
+        receita.setHorario(receitaIngredienteDTO.getReceitaDTO().getHorario());
+        
+        registro.setIngrediente(ingrediente);
+        registro.setReceita(receita);
         registro.setQuantidade(receitaIngredienteDTO.getQuantidade());
 
         registro = receitaIngredienteRepository.save(registro);

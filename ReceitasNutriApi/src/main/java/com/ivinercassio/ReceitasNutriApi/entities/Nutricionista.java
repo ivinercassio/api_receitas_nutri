@@ -72,6 +72,10 @@ public class Nutricionista {
         return nome;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getSenha() {
         if (senha == null || senha.isEmpty()) {
             throw new IllegalArgumentException("Senha não deve ser nulo ou vazio.");

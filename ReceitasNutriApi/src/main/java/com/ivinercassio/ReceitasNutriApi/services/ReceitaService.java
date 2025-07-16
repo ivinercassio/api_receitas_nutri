@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
+import com.ivinercassio.ReceitasNutriApi.entities.Nutricionista;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 import com.ivinercassio.ReceitasNutriApi.repositories.ReceitaRepository;
 
@@ -32,14 +33,21 @@ public class ReceitaService {
         if (receitaRepository.existsByTitulo(receitaDTO.getTitulo()))
             throw new IllegalArgumentException("A Receita já está cadastrado.");
 
+        Nutricionista nutri = new Nutricionista();
+        nutri.setNome(receitaDTO.getNutricionistaDTO().getNome());
+        nutri.setEmail(receitaDTO.getNutricionistaDTO().getEmail());
+        nutri.setEmailContato(receitaDTO.getNutricionistaDTO().getEmailContato());
+        nutri.setIntagram(receitaDTO.getNutricionistaDTO().getInstagram());
+        nutri.setTelefone(receitaDTO.getNutricionistaDTO().getTelefone());
+        nutri.setId(receitaDTO.getNutricionistaDTO().getId());
+
         Receita nova = new Receita();
         nova.setTitulo(receitaDTO.getTitulo());
         nova.setTempo(receitaDTO.getTempo());
         nova.setRendimento(receitaDTO.getRendimento());
-        nova.setNutricionista(receitaDTO.getNutricionista());
+        nova.setNutricionista(nutri);
         nova.setHorario(receitaDTO.getHorario());
 
-        // addIngredientes(nova, ingredientesDTO); controller proprio
         nova = receitaRepository.save(nova);
         return new ReceitaDTO(nova);
     }
@@ -48,10 +56,18 @@ public class ReceitaService {
         Receita registro = receitaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Receita não encontrado com ID: " + id));
 
+        Nutricionista nutri = new Nutricionista();
+        nutri.setNome(receitaDTO.getNutricionistaDTO().getNome());
+        nutri.setEmail(receitaDTO.getNutricionistaDTO().getEmail());
+        nutri.setEmailContato(receitaDTO.getNutricionistaDTO().getEmailContato());
+        nutri.setIntagram(receitaDTO.getNutricionistaDTO().getInstagram());
+        nutri.setTelefone(receitaDTO.getNutricionistaDTO().getTelefone());
+        nutri.setId(receitaDTO.getNutricionistaDTO().getId());
+
         registro.setTitulo(receitaDTO.getTitulo());
         registro.setTempo(receitaDTO.getTempo());
         registro.setRendimento(receitaDTO.getRendimento());
-        registro.setNutricionista(receitaDTO.getNutricionista());
+        registro.setNutricionista(nutri);
         registro.setHorario(receitaDTO.getHorario());
 
         Receita salva = receitaRepository.save(registro);

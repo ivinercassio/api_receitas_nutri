@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTO;
+import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
 import com.ivinercassio.ReceitasNutriApi.entities.PacienteReceita;
+import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 import com.ivinercassio.ReceitasNutriApi.repositories.PacienteReceitaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -60,5 +62,9 @@ public class PacienteReceitaService {
         // deletar os dados do pacienteReceita
         pacienteReceitaRepository.deleteById(id);;
     }
-
+    
+    public List<ReceitaDTO> buscarReceitasPorPaciente(Long id) {
+        List<Receita> list = pacienteReceitaRepository.findAllByPacienteId(id);
+        return list.stream().map(ReceitaDTO::new).toList();
+    }
 }

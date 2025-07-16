@@ -33,7 +33,7 @@ public class Receita {
     @Column(nullable = false)
     private String preparo;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "horario", nullable = false, length = 20)
     private HorarioEnum horario;
 
     @Column(nullable = true)

@@ -55,7 +55,8 @@ public class ReceitaController {
 
     @GetMapping("/nutricionista/{nutricionistaId}")
     public ResponseEntity<List<ReceitaDTO>> listarPorNutricionista(@PathVariable Long nutricionistaId) {
-        
-        return ResponseEntity.ok(receitaService.buscarReceitasPorNutricionista(nutricionistaId));
+        List<ReceitaDTO> list = receitaService.buscarReceitasPorNutricionista(nutricionistaId);
+        return ResponseEntity.ok().body(list);
     }
+
 }

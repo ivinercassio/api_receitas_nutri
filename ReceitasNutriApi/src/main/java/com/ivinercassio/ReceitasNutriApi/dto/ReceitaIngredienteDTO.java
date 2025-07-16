@@ -9,7 +9,7 @@ public class ReceitaIngredienteDTO {
     private Long id;
     private Receita receita;
     private Ingrediente ingrediente;
-    private int quantidade;
+    private String quantidade;
 
     public ReceitaIngredienteDTO() {}
 
@@ -44,13 +44,13 @@ public class ReceitaIngredienteDTO {
         this.receita = receita;
     }
 
-    public int getQuantidade() {
+    public String getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        if (quantidade <= 0) 
-            throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
+    public void setQuantidade(String quantidade) {
+        if (quantidade == null || quantidade == "") 
+            throw new IllegalArgumentException("Quantidade não deve ser nulo ou vazio.");
         this.quantidade = quantidade;
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTO;
+import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
 import com.ivinercassio.ReceitasNutriApi.services.PacienteReceitaService;
 
 @RestController
@@ -51,5 +52,11 @@ public class PacienteReceitaController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         pacienteReceitaService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/paciente/{pacienteId}") 
+    public ResponseEntity<List<ReceitaDTO>> listarPorPaciente(@PathVariable Long pacienteId) {
+        List<ReceitaDTO> list = pacienteReceitaService.buscarReceitasPorPaciente(pacienteId);
+        return ResponseEntity.ok().body(list);
     }
 }

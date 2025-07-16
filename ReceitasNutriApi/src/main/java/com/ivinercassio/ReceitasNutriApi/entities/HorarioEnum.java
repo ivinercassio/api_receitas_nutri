@@ -1,5 +1,5 @@
 package com.ivinercassio.ReceitasNutriApi.entities;
 
 public enum HorarioEnum {
-    CAFÉ_DA_MANHÃ, LANCHE, ALMOÇO, JANTA
+    CAFE_DA_MANHA, LANCHE, ALMOCO, JANTA
 }

@@ -31,26 +31,24 @@ public class IngredienteService {
     public IngredienteDTO insert(IngredienteDTO ingredienteDTO) {
         if (ingredienteRepository.existsByDescricao(ingredienteDTO.getDescricao()))
             throw new IllegalArgumentException("O Ingrediente já está cadastrado.");
-        
+
         Ingrediente novo = new Ingrediente();
-        novo.setDescricao(ingredienteDTO.getDescricao());
         novo.setCalorias(ingredienteDTO.getCalorias());
+        novo.setDescricao(ingredienteDTO.getDescricao());
+
         novo = ingredienteRepository.save(novo);
         return new IngredienteDTO(novo);
     }
 
-    public IngredienteDTO update(IngredienteDTO ingredienteDTO, Long id) {        
-        Ingrediente ingrediente = ingredienteRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Ingrediente não encontrado com ID: " + id));
+    public IngredienteDTO update(IngredienteDTO ingredienteDTO, Long id) {   
+        Ingrediente registro = ingredienteRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ingrediente não encontrado com ID: " + id));
 
-        // verifica ao alterar descricao
-        if (!ingrediente.getDescricao().equals(ingredienteDTO.getDescricao()) && ingredienteRepository.existsByDescricao(ingredienteDTO.getDescricao()))
-            throw new IllegalArgumentException("O Ingrediente já está cadastrado.");
-        
-        ingrediente.setDescricao(ingredienteDTO.getDescricao());
-        ingrediente.setCalorias(ingredienteDTO.getCalorias());
-        ingrediente = ingredienteRepository.save(ingrediente);
-        return new IngredienteDTO(ingrediente);
+        registro.setCalorias(ingredienteDTO.getCalorias());
+        registro.setDescricao(ingredienteDTO.getDescricao());;
+
+        Ingrediente salva = ingredienteRepository.save(registro);
+        return new IngredienteDTO(salva);
     }
 
     @Transactional
@@ -61,8 +59,4 @@ public class IngredienteService {
         ingredienteRepository.deleteById(id);;
     }
 
-    public List<IngredienteDTO> buscarPorDescricao(String descricao) {
-        List<Ingrediente> ingredientes = ingredienteRepository.findByDescricaoContainingIgnoreCase(descricao);
-        return ingredientes.stream().map(IngredienteDTO::new).toList();
-    }
 }

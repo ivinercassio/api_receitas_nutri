@@ -25,7 +25,7 @@ public class PacienteReceita {
     @JoinColumn(name = "receita_id") // coluna da tabela que referencia a receita
     private Receita receita;
 
-    @Column(nullable = false)
+    @Column(name = "data_favoritacao", nullable = false)
     private String dataFavoritacao;
     // SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 

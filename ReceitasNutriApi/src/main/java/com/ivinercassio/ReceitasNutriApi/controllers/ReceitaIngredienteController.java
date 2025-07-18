@@ -13,50 +13,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
-import com.ivinercassio.ReceitasNutriApi.services.ReceitaService;
+import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTO;
+import com.ivinercassio.ReceitasNutriApi.services.ReceitaIngredienteService;
 
 @RestController
-@RequestMapping("/receitas")
-public class ReceitaController {
+@RequestMapping("/receitas-ingredientes")
+public class ReceitaIngredienteController {
     
     @Autowired
-    ReceitaService receitaService;
+    ReceitaIngredienteService receitaIngredienteService;
 
     @GetMapping("")
-    public ResponseEntity<List<ReceitaDTO>> findAll() {
-        List<ReceitaDTO> list = receitaService.findAll();
+    public ResponseEntity<List<ReceitaIngredienteDTO>> findAll() {
+        List<ReceitaIngredienteDTO> list = receitaIngredienteService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReceitaDTO> findById(@PathVariable Long id) {
-        ReceitaDTO receita = receitaService.findById(id);
+    public ResponseEntity<ReceitaIngredienteDTO> findById(@PathVariable Long id) {
+        ReceitaIngredienteDTO receita = receitaIngredienteService.findById(id);
         return ResponseEntity.ok().body(receita);
     }
 
     @PostMapping("") 
-    public ResponseEntity<ReceitaDTO> insert(@RequestBody ReceitaDTO receita) {
-        ReceitaDTO salvo = receitaService.insert(receita);
+    public ResponseEntity<ReceitaIngredienteDTO> insert(@RequestBody ReceitaIngredienteDTO receita) {
+        ReceitaIngredienteDTO salvo = receitaIngredienteService.insert(receita);
         return ResponseEntity.status(201).body(salvo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReceitaDTO> update(@RequestBody ReceitaDTO receita, @PathVariable Long id) {
-        ReceitaDTO alterado = receitaService.update(receita, id);
+    public ResponseEntity<ReceitaIngredienteDTO> update(@RequestBody ReceitaIngredienteDTO receita, @PathVariable Long id) {
+        ReceitaIngredienteDTO alterado = receitaIngredienteService.update(receita, id);
         return ResponseEntity.ok().body(alterado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        receitaService.delete(id);
+        receitaIngredienteService.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/nutricionista/{nutricionistaId}")
-    public ResponseEntity<List<ReceitaDTO>> listarPorNutricionista(@PathVariable Long nutricionistaId) {
-        List<ReceitaDTO> list = receitaService.buscarReceitasPorNutricionista(nutricionistaId);
-        return ResponseEntity.ok().body(list);
     }
 
 }

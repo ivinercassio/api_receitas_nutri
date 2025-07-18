@@ -26,12 +26,12 @@ public class ReceitaIngrediente {
     private Ingrediente ingrediente;
 
     @Column(nullable = false)
-    private int quantidade;
+    private String quantidade;
     // SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 
     public ReceitaIngrediente() {}
 
-    public ReceitaIngrediente(Receita receita, Ingrediente ingrediente, int quantidade) {
+    public ReceitaIngrediente(Receita receita, Ingrediente ingrediente, String quantidade) {
         this.receita = receita;
         this.ingrediente = ingrediente;
         this.quantidade = quantidade;
@@ -45,7 +45,7 @@ public class ReceitaIngrediente {
         return ingrediente;
     }
 
-    public void setPaciente(Ingrediente ingrediente) {
+    public void setIngrediente(Ingrediente ingrediente) {
         if (ingrediente == null) 
             throw new IllegalArgumentException("Ingrediente não deve ser nulo ou vazio.");
         this.ingrediente = ingrediente;
@@ -61,13 +61,13 @@ public class ReceitaIngrediente {
         this.receita = receita;
     }
 
-    public int getQuantidade() {
+    public String getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        if (quantidade <= 0) 
-            throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
+    public void setQuantidade(String quantidade) {
+        if (quantidade == null || quantidade == "") 
+            throw new IllegalArgumentException("Quantidade não deve ser nula ou vazio.");
         this.quantidade = quantidade;
     }
 }

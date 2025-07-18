@@ -3,10 +3,12 @@ package com.ivinercassio.ReceitasNutriApi.services;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.entities.Usuario;
 import com.ivinercassio.ReceitasNutriApi.repositories.UsuarioRepository;
 
+@Service
 public class UsuarioService {
     
     private final UsuarioRepository usuarioRepository;

@@ -30,34 +30,69 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Desabilita verificação CSRF para permitir POST com token JWT
+                // Desabilita verificacao CSRF para permitir POST com token JWT
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll() // Acesso ao H2 Console
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Acesso
-                                                                                                              // ao
-                                                                                                              // Swagger
-                                                                                                              // UI
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll() // Permitir criação de usuário
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll() // Permitir endpoint de login
-                        .requestMatchers(HttpMethod.GET, "/clientes").hasAnyRole("ADMIN") // Regras de Autorização para
-                                                                                          // Clientes
-                        .requestMatchers(HttpMethod.GET, "/clientes/{id}").hasAnyRole("GESTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/clientes").hasAnyRole("GESTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/clientes/**").hasAnyRole("GESTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/eventos").hasAnyRole("ADMIN") // Regras de Autorização para
-                                                                                         // Eventos
-                        .requestMatchers(HttpMethod.GET, "/eventos/{id}").hasAnyRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/eventos").hasAnyRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/eventos/**").hasAnyRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/ingressos").hasAnyRole("ADMIN") // Regras de Autorização para
-                                                                                           // Ingressos
-                        .requestMatchers(HttpMethod.GET, "/ingressos/{id}").hasAnyRole("GESTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/ingressos").hasAnyRole("GESTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/ingressos/**").hasAnyRole("GESTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/ingressos/**").hasRole("ADMIN")
+                        // Acesso ao H2 Console
+                        .requestMatchers("/h2-console/**").permitAll() 
+                        // Acesso ao Swagger UI
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() 
+                        // Permitir criacao de usuário
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll() 
+                        // Permitir endpoint de login
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+
+                        // Regras de para Nutricionista
+                        .requestMatchers(HttpMethod.GET, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/nutricionistas/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/nutricionistas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/nutricionistas/**").hasRole("ADMIN")
+                        
+                        // Regras de para Paciente
+                        .requestMatchers(HttpMethod.GET, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes/{id}").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/pacientes/**").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/pacientes/**").hasRole("ADMIN")
+                        
+                        // Regras de para Ingredientes
+                        .requestMatchers(HttpMethod.GET, "/ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/ingredientes/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/ingredientes/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/ingredientes/**").hasRole("ADMIN")
+                        
+                        // Regras de para Receitas
+                        .requestMatchers(HttpMethod.GET, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/receitas/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/receitas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/receitas/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/receitas/nutricionista/{nutricionistaId}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        
+                        // Regras de para Consumos
+                        .requestMatchers(HttpMethod.GET, "/consumos").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/consumos/{id}").hasAnyRole("PACIENTE", "NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/consumos").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/consumos/**").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/consumos/**").hasRole("ADMIN")
+
+                        // Regras de para Paciente Receita
+                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas/{id}").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/pacientes-receitas").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/pacientes-receitas/**").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas/paciente/{pacienteId}").hasAnyRole("NUTRICIONISTA", "PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/pacientes-receitas/**").hasRole("ADMIN")
+
+                        // Regras de para Receita Ingrediente
+                        .requestMatchers(HttpMethod.GET, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/receitas-ingredientes/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/receitas-ingredientes/**").hasRole("ADMIN")
+                        
                         .anyRequest().authenticated() // Todos os outros endpoints exigem autenticação
                 )
                 .headers(headers -> headers.frameOptions().disable()) // Para H2 Console

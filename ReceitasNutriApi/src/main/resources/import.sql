@@ -1,3 +1,9 @@
+-- USUARIO
+INSERT INTO tb_usuario (login, senha, nivel_acesso) VALUES ('admin', '123456', 'ADMIN');
+INSERT INTO tb_usuario (login, senha, nivel_acesso) VALUES ('mariana.santos@person.com', '123456', 'PACIENTE');
+INSERT INTO tb_usuario (login, senha, nivel_acesso) VALUES ('ana.paula@nutri.com', '123456', 'NUTRICIONISTA');
+
+
 -- PACIENTE
 INSERT INTO tb_paciente (nome, email, senha) VALUES ('Lucas Almeida', 'lucas.almeida@person.com', '123456');
 INSERT INTO tb_paciente (nome, email, senha) VALUES ('Mariana Santos', 'mariana.santos@person.com', '123456');

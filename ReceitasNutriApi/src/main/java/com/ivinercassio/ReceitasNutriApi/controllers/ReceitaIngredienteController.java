@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTO;
+import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.services.ReceitaIngredienteService;
 
 @RestController
@@ -24,24 +25,24 @@ public class ReceitaIngredienteController {
     ReceitaIngredienteService receitaIngredienteService;
 
     @GetMapping("")
-    public ResponseEntity<List<ReceitaIngredienteDTO>> findAll() {
-        List<ReceitaIngredienteDTO> list = receitaIngredienteService.findAll();
+    public ResponseEntity<List<ReceitaIngredienteDTOSimples>> findAll() {
+        List<ReceitaIngredienteDTOSimples> list = receitaIngredienteService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // retorno detalhado
     public ResponseEntity<ReceitaIngredienteDTO> findById(@PathVariable Long id) {
         ReceitaIngredienteDTO receita = receitaIngredienteService.findById(id);
         return ResponseEntity.ok().body(receita);
     }
 
-    @PostMapping("") 
+    @PostMapping("") // retorno detalhado
     public ResponseEntity<ReceitaIngredienteDTO> insert(@RequestBody ReceitaIngredienteDTO receita) {
         ReceitaIngredienteDTO salvo = receitaIngredienteService.insert(receita);
         return ResponseEntity.status(201).body(salvo);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // retorno detalhado
     public ResponseEntity<ReceitaIngredienteDTO> update(@RequestBody ReceitaIngredienteDTO receita, @PathVariable Long id) {
         ReceitaIngredienteDTO alterado = receitaIngredienteService.update(receita, id);
         return ResponseEntity.ok().body(alterado);

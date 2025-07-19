@@ -30,7 +30,7 @@ public class Receita {
     @Column(nullable = false)
     private double tempo;
 
-    @Column(nullable = false)
+    @Column(nullable = false) 
     private String preparo;
 
     @Column(name = "horario", nullable = false, length = 20)

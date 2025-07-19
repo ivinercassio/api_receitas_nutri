@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTO;
-import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
+import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
 import com.ivinercassio.ReceitasNutriApi.entities.PacienteReceita;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
@@ -21,9 +21,9 @@ public class PacienteReceitaService {
     @Autowired
     PacienteReceitaRepository pacienteReceitaRepository;
 
-    public List<PacienteReceitaDTO> findAll() {
+    public List<PacienteReceitaDTOSimples> findAll() {
         List<PacienteReceita> list = pacienteReceitaRepository.findAll();
-        return list.stream().map(PacienteReceitaDTO::new).toList();
+        return list.stream().map(PacienteReceitaDTOSimples::new).toList();
     }
 
     public PacienteReceitaDTO findById (Long id){
@@ -85,9 +85,8 @@ public class PacienteReceitaService {
         pacienteReceitaRepository.deleteById(id);;
     }
     
-    // AINDA NAO FUNCIONA
-    public List<ReceitaDTO> buscarReceitasPorPaciente(Long id) {
-        List<Receita> list = pacienteReceitaRepository.findAllByPacienteId(id);
-        return list.stream().map(ReceitaDTO::new).toList();
+    public List<PacienteReceitaDTOSimples> buscarReceitasPorPaciente(Long id) {
+        List<PacienteReceita> list = pacienteReceitaRepository.findAllByPacienteId(id);
+        return list.stream().map(PacienteReceitaDTOSimples::new).toList();
     }
 }

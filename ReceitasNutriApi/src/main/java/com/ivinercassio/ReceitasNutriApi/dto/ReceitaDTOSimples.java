@@ -3,24 +3,22 @@ package com.ivinercassio.ReceitasNutriApi.dto;
 import com.ivinercassio.ReceitasNutriApi.entities.HorarioEnum;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 
-public class ReceitaDTO {
+public class ReceitaDTOSimples {
     private Long id;
-    private NutricionistaDTO nutricionista; 
-    private String titulo;  
+    private NutricionistaDTOSimples nutricionista; 
+    private String titulo;
     private int rendimento;
     private double tempo;
-    private String preparo;
     private HorarioEnum horario;
 
-    public ReceitaDTO() {}
+    public ReceitaDTOSimples() {}
 
-    public ReceitaDTO(Receita receita) {
+    public ReceitaDTOSimples(Receita receita) {
         this.id = receita.getId();
-        this.nutricionista = new NutricionistaDTO(receita.getNutricionista());
+        this.nutricionista = new NutricionistaDTOSimples(receita.getNutricionista());
         this.titulo = receita.getTitulo();
         this.rendimento = receita.getRendimento();
         this.tempo = receita.getTempo();
-        this.preparo = receita.getPreparo();
         this.horario = receita.getHorario();
     }
 
@@ -28,11 +26,11 @@ public class ReceitaDTO {
         return id;
     }
 
-    public NutricionistaDTO getNutricionistaDTO() {
+    public NutricionistaDTOSimples getNutricionistaDTO() {
         return nutricionista;
     }
 
-    public void setNutricionistaDTO(NutricionistaDTO nutricionista) {
+    public void setNutricionistaDTO(NutricionistaDTOSimples nutricionista) {
         if (nutricionista == null)
             throw new IllegalArgumentException("Nutricionista não deve ser nula ou vazia");
         this.nutricionista = nutricionista;
@@ -74,17 +72,5 @@ public class ReceitaDTO {
 
     public void setHorario(HorarioEnum horario) {
         this.horario = horario;
-    }
-
-    public String getPreparo() {
-        return preparo;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPreparo(String preparo) {
-        this.preparo = preparo;
     }
 }

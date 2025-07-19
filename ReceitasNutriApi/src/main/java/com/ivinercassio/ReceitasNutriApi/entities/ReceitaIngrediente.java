@@ -27,7 +27,6 @@ public class ReceitaIngrediente {
 
     @Column(nullable = false)
     private String quantidade;
-    // SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 
     public ReceitaIngrediente() {}
 

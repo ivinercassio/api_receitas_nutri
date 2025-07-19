@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
+import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.entities.Nutricionista;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 import com.ivinercassio.ReceitasNutriApi.repositories.ReceitaRepository;
@@ -19,9 +20,9 @@ public class ReceitaService {
     @Autowired
     ReceitaRepository receitaRepository;
 
-    public List<ReceitaDTO> findAll() {
+    public List<ReceitaDTOSimples> findAll() {
         List<Receita> list = receitaRepository.findAll();
-        return list.stream().map(ReceitaDTO::new).toList();
+        return list.stream().map(ReceitaDTOSimples::new).toList();
     }
 
     public ReceitaDTO findById (Long id){
@@ -34,12 +35,12 @@ public class ReceitaService {
             throw new IllegalArgumentException("A Receita já está cadastrado.");
 
         Nutricionista nutri = new Nutricionista();
+        nutri.setId(receitaDTO.getNutricionistaDTO().getId());
         nutri.setNome(receitaDTO.getNutricionistaDTO().getNome());
         nutri.setEmail(receitaDTO.getNutricionistaDTO().getEmail());
         nutri.setEmailContato(receitaDTO.getNutricionistaDTO().getEmailContato());
         nutri.setIntagram(receitaDTO.getNutricionistaDTO().getInstagram());
         nutri.setTelefone(receitaDTO.getNutricionistaDTO().getTelefone());
-        nutri.setId(receitaDTO.getNutricionistaDTO().getId());
 
         Receita nova = new Receita();
         nova.setTitulo(receitaDTO.getTitulo());
@@ -47,6 +48,7 @@ public class ReceitaService {
         nova.setRendimento(receitaDTO.getRendimento());
         nova.setNutricionista(nutri);
         nova.setHorario(receitaDTO.getHorario());
+        nova.setPreparo(receitaDTO.getPreparo());
 
         nova = receitaRepository.save(nova);
         return new ReceitaDTO(nova);
@@ -82,8 +84,8 @@ public class ReceitaService {
         receitaRepository.deleteById(id);;
     }
 
-    public List<ReceitaDTO> buscarReceitasPorNutricionista(Long id) {
+    public List<ReceitaDTOSimples> buscarReceitasPorNutricionista(Long id) {
         List<Receita> list = receitaRepository.findAllByNutricionistaId(id);
-        return list.stream().map(ReceitaDTO::new).toList();
+        return list.stream().map(ReceitaDTOSimples::new).toList();
     }
 }

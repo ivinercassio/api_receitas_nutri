@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTO;
-import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
+import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.services.PacienteReceitaService;
 
 @RestController
@@ -25,24 +25,24 @@ public class PacienteReceitaController {
     PacienteReceitaService pacienteReceitaService;
 
     @GetMapping("")
-    public ResponseEntity<List<PacienteReceitaDTO>> findAll() {
-        List<PacienteReceitaDTO> list = pacienteReceitaService.findAll();
+    public ResponseEntity<List<PacienteReceitaDTOSimples>> findAll() {
+        List<PacienteReceitaDTOSimples> list = pacienteReceitaService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // retonro detalhado
     public ResponseEntity<PacienteReceitaDTO> findById(@PathVariable Long id) {
         PacienteReceitaDTO pacienteReceita = pacienteReceitaService.findById(id);
         return ResponseEntity.ok().body(pacienteReceita);
     }
 
-    @PostMapping("") 
+    @PostMapping("") // retorno detalhado
     public ResponseEntity<PacienteReceitaDTO> insert(@RequestBody PacienteReceitaDTO pacienteReceita) {
         PacienteReceitaDTO salvo = pacienteReceitaService.insert(pacienteReceita);
         return ResponseEntity.status(201).body(salvo);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // retorno detalhado
     public ResponseEntity<PacienteReceitaDTO> update(@RequestBody PacienteReceitaDTO pacienteReceita, @PathVariable Long id) {
         PacienteReceitaDTO alterado = pacienteReceitaService.update(pacienteReceita, id);
         return ResponseEntity.ok().body(alterado);
@@ -55,8 +55,8 @@ public class PacienteReceitaController {
     }
 
     @GetMapping("/paciente/{pacienteId}") 
-    public ResponseEntity<List<ReceitaDTO>> listarPorPaciente(@PathVariable Long pacienteId) {
-        List<ReceitaDTO> list = pacienteReceitaService.buscarReceitasPorPaciente(pacienteId);
+    public ResponseEntity<List<PacienteReceitaDTOSimples>> listarPorPaciente(@PathVariable Long pacienteId) {
+        List<PacienteReceitaDTOSimples> list = pacienteReceitaService.buscarReceitasPorPaciente(pacienteId);
         return ResponseEntity.ok().body(list);
     }
 }

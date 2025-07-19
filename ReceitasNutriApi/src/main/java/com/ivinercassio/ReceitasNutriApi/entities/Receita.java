@@ -119,6 +119,10 @@ public class Receita {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
 }
 

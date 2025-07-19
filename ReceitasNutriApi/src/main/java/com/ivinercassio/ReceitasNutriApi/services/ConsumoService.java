@@ -31,10 +31,12 @@ public class ConsumoService {
 
     public ConsumoDTO insert(ConsumoDTO consumoDTO) {
         Paciente paciente = new Paciente();
+        paciente.setId(consumoDTO.getPaciente().getId());
         paciente.setNome(consumoDTO.getPaciente().getNome());
         paciente.setEmail(consumoDTO.getPaciente().getEmail());
 
         Consumo novo = new Consumo();
+        novo.setId(consumoDTO.getId());
         novo.setPaciente(paciente);
         novo.setDataHora(consumoDTO.getDataHora());
 
@@ -47,6 +49,7 @@ public class ConsumoService {
                 .orElseThrow(() -> new EntityNotFoundException("Consumo não encontrado com ID: " + id));
 
         Paciente paciente = new Paciente();
+        paciente.setId(consumoDTO.getPaciente().getId());
         paciente.setNome(consumoDTO.getPaciente().getNome());
         paciente.setEmail(consumoDTO.getPaciente().getEmail());
 

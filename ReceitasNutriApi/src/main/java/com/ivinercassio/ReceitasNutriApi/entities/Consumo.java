@@ -51,4 +51,8 @@ public class Consumo {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

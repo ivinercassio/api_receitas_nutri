@@ -65,5 +65,9 @@ public class Paciente {
             throw new IllegalArgumentException("Senha não deve ser nulo ou vazio.");
         this.senha = senha;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
 }

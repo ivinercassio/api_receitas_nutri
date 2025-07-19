@@ -42,6 +42,7 @@ public class ReceitaIngredienteService {
         nutri.setTelefone(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getTelefone());
         
         Receita receita = new Receita();
+        receita.setId(receitaIngredienteDTO.getReceitaDTO().getId());
         receita.setTitulo(receitaIngredienteDTO.getReceitaDTO().getTitulo());
         receita.setTempo(receitaIngredienteDTO.getReceitaDTO().getTempo());
         receita.setRendimento(receitaIngredienteDTO.getReceitaDTO().getRendimento());
@@ -50,6 +51,7 @@ public class ReceitaIngredienteService {
         receita.setHorario(receitaIngredienteDTO.getReceitaDTO().getHorario());
         
         Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setId(receitaIngredienteDTO.getIngredienteDTO().getId());
         ingrediente.setDescricao(receitaIngredienteDTO.getIngredienteDTO().getDescricao());
         ingrediente.setCalorias(receitaIngredienteDTO.getIngredienteDTO().getCalorias());
 
@@ -75,14 +77,17 @@ public class ReceitaIngredienteService {
         nutri.setTelefone(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getTelefone());
 
         Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setId(receitaIngredienteDTO.getIngredienteDTO().getId());
         ingrediente.setDescricao(receitaIngredienteDTO.getIngredienteDTO().getDescricao());
         ingrediente.setCalorias(receitaIngredienteDTO.getIngredienteDTO().getCalorias());
 
         Receita receita = new Receita();
+        receita.setId(receitaIngredienteDTO.getReceitaDTO().getId());
         receita.setTitulo(receitaIngredienteDTO.getReceitaDTO().getTitulo());
         receita.setTempo(receitaIngredienteDTO.getReceitaDTO().getTempo());
         receita.setRendimento(receitaIngredienteDTO.getReceitaDTO().getRendimento());
-        receita.setNutricionista(nutri); 
+        receita.setNutricionista(nutri);
+        receita.setPreparo(receitaIngredienteDTO.getReceitaDTO().getPreparo());
         receita.setHorario(receitaIngredienteDTO.getReceitaDTO().getHorario());
         
         registro.setIngrediente(ingrediente);

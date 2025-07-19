@@ -19,8 +19,9 @@ import com.ivinercassio.ReceitasNutriApi.services.UsuarioDetailsService;
 
 @Configuration
 public class SecurityConfig {
+    
     @Autowired
-    private UsuarioDetailsService usuarioDetailsService;
+    private UsuarioDetailsService usuarioDetailsService; 
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -37,10 +38,10 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll() 
                         // Acesso ao Swagger UI
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() 
-                        // Permitir criacao de usuário
+                        // Permitir criação de usuário
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll() 
                         // Permitir endpoint de login
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll() 
 
                         // Regras de para Nutricionista
                         .requestMatchers(HttpMethod.GET, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
@@ -93,7 +94,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/receitas-ingredientes/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/receitas-ingredientes/**").hasRole("ADMIN")
                         
-                        .anyRequest().authenticated() // Todos os outros endpoints exigem autenticação
+                        // Todos os outros endpoints exigem autenticação
+                        .anyRequest().authenticated() 
                 )
                 .headers(headers -> headers.frameOptions().disable()) // Para H2 Console
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

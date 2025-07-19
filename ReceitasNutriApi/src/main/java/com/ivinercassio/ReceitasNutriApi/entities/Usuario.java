@@ -23,7 +23,7 @@ public class Usuario {
     private String senha;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "nivel_acesso", nullable = false)
+    @Column(name = "nivel_acesso", nullable = true) // DEIXEI NULO
     private NivelAcesso nivelAcesso;
 
     public Usuario() {}

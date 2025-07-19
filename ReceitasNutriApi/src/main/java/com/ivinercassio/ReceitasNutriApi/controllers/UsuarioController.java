@@ -3,6 +3,7 @@ package com.ivinercassio.ReceitasNutriApi.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ivinercassio.ReceitasNutriApi.dto.UsuarioDTO;
 import com.ivinercassio.ReceitasNutriApi.entities.Usuario;
 import com.ivinercassio.ReceitasNutriApi.services.UsuarioService;
 
@@ -25,9 +26,9 @@ public class UsuarioController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> criarUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> criarUsuario(@RequestBody UsuarioDTO usuario) {
         try {
-            Usuario novoUsuario = usuarioService.criarUsuario(usuario);
+            UsuarioDTO novoUsuario = usuarioService.criarUsuario(usuario);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.entities.Usuario;
+import com.ivinercassio.ReceitasNutriApi.dto.UsuarioDTO;
 import com.ivinercassio.ReceitasNutriApi.repositories.UsuarioRepository;
 
 @Service
@@ -19,14 +20,18 @@ public class UsuarioService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // NAO PRECISA SER LOGIN_DTO AO INVES DE USUARIO? 
-
-    public Usuario criarUsuario(Usuario usuario) {
-        if (usuarioRepository.existsByLogin(usuario.getLogin())) {
-            throw new IllegalArgumentException("Usuário já existe com o login: " + usuario.getLogin());
+    public UsuarioDTO criarUsuario(UsuarioDTO dto) {
+        if (usuarioRepository.existsByLogin(dto.getLogin())) {
+            throw new IllegalArgumentException("Usuário já existe com o login: " + dto.getLogin());
         }
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));        
-        return usuarioRepository.save(usuario);
+
+        Usuario user = new Usuario();
+        user.setLogin(dto.getLogin());
+        user.setSenha(passwordEncoder.encode(dto.getSenha()));  
+        user.setNivelAcesso(dto.getNivelAcesso());     
+
+        user = usuarioRepository.save(user);
+        return new UsuarioDTO(user);
     }
 
     public List<Usuario> listarUsuarios() {

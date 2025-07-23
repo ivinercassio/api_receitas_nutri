@@ -106,4 +106,8 @@ public class ReceitaIngredienteService {
         receitaIngredienteRepository.deleteById(id);;
     }
 
+    public List<ReceitaIngredienteDTOSimples> findAllByIngredienteDescricao(String descricao) {
+        List<ReceitaIngrediente> list = receitaIngredienteRepository.findAllByIngredienteDescricaoContainingIgnoreCase(descricao);
+        return list.stream().map(ReceitaIngredienteDTOSimples::new).toList();
+    }
 }

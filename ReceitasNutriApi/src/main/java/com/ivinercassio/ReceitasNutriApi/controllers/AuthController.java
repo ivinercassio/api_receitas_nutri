@@ -15,7 +15,6 @@ import com.ivinercassio.ReceitasNutriApi.security.JwtTokenProvider;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-// ESSES IMPORTS SAO DO PACOTE SECURTY??
 
 @RestController
 @RequestMapping("/auth")

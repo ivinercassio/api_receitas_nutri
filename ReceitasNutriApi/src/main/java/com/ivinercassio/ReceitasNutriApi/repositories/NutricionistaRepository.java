@@ -7,4 +7,5 @@ import com.ivinercassio.ReceitasNutriApi.entities.Nutricionista;
 public interface NutricionistaRepository extends JpaRepository <Nutricionista, Long>{
     
     public boolean existsByEmail(String email);
+    public Nutricionista findByEmail(String email);
 }

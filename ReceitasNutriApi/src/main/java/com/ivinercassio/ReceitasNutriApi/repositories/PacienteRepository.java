@@ -7,5 +7,5 @@ import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     public boolean existsByEmail(String email);
-    
+    public Paciente findByEmail(String email);
 }

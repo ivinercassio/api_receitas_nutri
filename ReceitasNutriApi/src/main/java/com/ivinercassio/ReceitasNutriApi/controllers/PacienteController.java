@@ -52,4 +52,10 @@ public class PacienteController {
         pacienteService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<PacienteDTO> findByEmail(@PathVariable String email) {
+        PacienteDTO paciente = pacienteService.findByEmail(email);
+        return ResponseEntity.ok().body(paciente);
+    }
 }

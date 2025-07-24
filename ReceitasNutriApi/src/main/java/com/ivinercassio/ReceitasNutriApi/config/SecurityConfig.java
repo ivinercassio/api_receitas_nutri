@@ -55,6 +55,7 @@ public class SecurityConfig {
                         // Regras de para Nutricionista
                         .requestMatchers(HttpMethod.GET, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/nutricionistas/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/nutricionistas/email/{email}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/nutricionistas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/nutricionistas/**").hasRole("ADMIN")
@@ -62,6 +63,7 @@ public class SecurityConfig {
                         // Regras de para Paciente
                         .requestMatchers(HttpMethod.GET, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/pacientes/{id}").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes/email/{email}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/pacientes/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/pacientes/**").hasRole("ADMIN")

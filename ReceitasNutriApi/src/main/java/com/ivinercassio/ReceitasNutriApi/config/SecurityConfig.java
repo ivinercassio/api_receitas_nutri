@@ -77,7 +77,7 @@ public class SecurityConfig {
 
                         // Regras de para Receitas
                         .requestMatchers(HttpMethod.GET, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/receitas/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/receitas/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/receitas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/receitas/**").hasRole("ADMIN")
@@ -106,6 +106,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/{id}")
                         .hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/ingrediente/{descricao}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/receita/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/receitas-ingredientes/**")
                         .hasAnyRole("NUTRICIONISTA", "ADMIN")

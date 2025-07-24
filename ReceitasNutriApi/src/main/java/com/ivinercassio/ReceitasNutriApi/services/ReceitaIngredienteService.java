@@ -110,4 +110,9 @@ public class ReceitaIngredienteService {
         List<ReceitaIngrediente> list = receitaIngredienteRepository.findAllByIngredienteDescricaoContainingIgnoreCase(descricao);
         return list.stream().map(ReceitaIngredienteDTOSimples::new).toList();
     }
+
+    public List<ReceitaIngredienteDTOSimples> findAllByReceitaId(Long id) {
+        List<ReceitaIngrediente> list = receitaIngredienteRepository.findAllByReceitaId(id);
+        return list.stream().map(ReceitaIngredienteDTOSimples::new).toList();
+    }
 }

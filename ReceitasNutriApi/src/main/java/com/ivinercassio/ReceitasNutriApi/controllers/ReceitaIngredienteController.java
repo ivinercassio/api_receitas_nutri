@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTO;
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTOSimples;
-import com.ivinercassio.ReceitasNutriApi.entities.ReceitaIngrediente;
 import com.ivinercassio.ReceitasNutriApi.services.ReceitaIngredienteService;
 
 @RestController
@@ -61,4 +60,9 @@ public class ReceitaIngredienteController {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping("/receita/{id}")
+    public ResponseEntity<List<ReceitaIngredienteDTOSimples>> findAllByReceitaId(@PathVariable Long id) {
+        List<ReceitaIngredienteDTOSimples> list = receitaIngredienteService.findAllByReceitaId(id);
+        return ResponseEntity.ok().body(list);
+    }
 }

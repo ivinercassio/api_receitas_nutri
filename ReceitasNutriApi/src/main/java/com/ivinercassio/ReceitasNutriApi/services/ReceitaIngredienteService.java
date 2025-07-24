@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTO;
-import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.entities.Ingrediente;
-import com.ivinercassio.ReceitasNutriApi.entities.Nutricionista;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 import com.ivinercassio.ReceitasNutriApi.entities.ReceitaIngrediente;
+import com.ivinercassio.ReceitasNutriApi.repositories.IngredienteRepository;
 import com.ivinercassio.ReceitasNutriApi.repositories.ReceitaIngredienteRepository;
+import com.ivinercassio.ReceitasNutriApi.repositories.ReceitaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -22,9 +22,15 @@ public class ReceitaIngredienteService {
     @Autowired
     ReceitaIngredienteRepository receitaIngredienteRepository;
 
-    public List<ReceitaIngredienteDTOSimples> findAll() {
+    @Autowired
+    ReceitaRepository receitaRepository;
+
+    @Autowired
+    IngredienteRepository ingredienteRepository;
+
+    public List<ReceitaIngredienteDTO> findAll() {
         List<ReceitaIngrediente> list = receitaIngredienteRepository.findAll();
-        return list.stream().map(ReceitaIngredienteDTOSimples::new).toList();
+        return list.stream().map(ReceitaIngredienteDTO::new).toList();
     }
 
     public ReceitaIngredienteDTO findById (Long id){
@@ -33,27 +39,9 @@ public class ReceitaIngredienteService {
     }
 
     public ReceitaIngredienteDTO insert(ReceitaIngredienteDTO receitaIngredienteDTO) {
-        Nutricionista nutri = new Nutricionista();
-        nutri.setId(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getId());
-        nutri.setNome(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getNome());
-        nutri.setEmail(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getEmail());
-        nutri.setEmailContato(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getEmailContato());
-        nutri.setIntagram(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getInstagram());
-        nutri.setTelefone(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getTelefone());
-        
-        Receita receita = new Receita();
-        receita.setId(receitaIngredienteDTO.getReceitaDTO().getId());
-        receita.setTitulo(receitaIngredienteDTO.getReceitaDTO().getTitulo());
-        receita.setTempo(receitaIngredienteDTO.getReceitaDTO().getTempo());
-        receita.setRendimento(receitaIngredienteDTO.getReceitaDTO().getRendimento());
-        receita.setNutricionista(nutri);
-        receita.setPreparo(receitaIngredienteDTO.getReceitaDTO().getPreparo());
-        receita.setHorario(receitaIngredienteDTO.getReceitaDTO().getHorario());
-        
-        Ingrediente ingrediente = new Ingrediente();
-        ingrediente.setId(receitaIngredienteDTO.getIngredienteDTO().getId());
-        ingrediente.setDescricao(receitaIngredienteDTO.getIngredienteDTO().getDescricao());
-        ingrediente.setCalorias(receitaIngredienteDTO.getIngredienteDTO().getCalorias());
+        Receita receita = receitaRepository.findById(receitaIngredienteDTO.getIdReceita()).orElseThrow(() -> new EntityNotFoundException("Receita não encontrada com ID: " + receitaIngredienteDTO.getIdReceita()));
+    
+        Ingrediente ingrediente = ingredienteRepository.findById(receitaIngredienteDTO.getIdIngrediente()).orElseThrow(() -> new EntityNotFoundException("Receita não encontrada com ID: " + receitaIngredienteDTO.getIdIngrediente()));
 
         ReceitaIngrediente nova = new ReceitaIngrediente();
         nova.setIngrediente(ingrediente);
@@ -68,27 +56,9 @@ public class ReceitaIngredienteService {
         ReceitaIngrediente registro = receitaIngredienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("ReceitaIngrediente não encontrado com ID: " + id));
 
-        Nutricionista nutri = new Nutricionista();
-        nutri.setId(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getId());
-        nutri.setNome(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getNome());
-        nutri.setEmail(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getEmail());
-        nutri.setEmailContato(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getEmailContato());
-        nutri.setIntagram(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getInstagram());
-        nutri.setTelefone(receitaIngredienteDTO.getReceitaDTO().getNutricionistaDTO().getTelefone());
-
-        Ingrediente ingrediente = new Ingrediente();
-        ingrediente.setId(receitaIngredienteDTO.getIngredienteDTO().getId());
-        ingrediente.setDescricao(receitaIngredienteDTO.getIngredienteDTO().getDescricao());
-        ingrediente.setCalorias(receitaIngredienteDTO.getIngredienteDTO().getCalorias());
-
-        Receita receita = new Receita();
-        receita.setId(receitaIngredienteDTO.getReceitaDTO().getId());
-        receita.setTitulo(receitaIngredienteDTO.getReceitaDTO().getTitulo());
-        receita.setTempo(receitaIngredienteDTO.getReceitaDTO().getTempo());
-        receita.setRendimento(receitaIngredienteDTO.getReceitaDTO().getRendimento());
-        receita.setNutricionista(nutri);
-        receita.setPreparo(receitaIngredienteDTO.getReceitaDTO().getPreparo());
-        receita.setHorario(receitaIngredienteDTO.getReceitaDTO().getHorario());
+        Receita receita = receitaRepository.findById(receitaIngredienteDTO.getIdReceita()).orElseThrow(() -> new EntityNotFoundException("Receita não encontrada com ID: " + receitaIngredienteDTO.getIdReceita()));
+    
+        Ingrediente ingrediente = ingredienteRepository.findById(receitaIngredienteDTO.getIdIngrediente()).orElseThrow(() -> new EntityNotFoundException("Receita não encontrada com ID: " + receitaIngredienteDTO.getIdIngrediente()));
         
         registro.setIngrediente(ingrediente);
         registro.setReceita(receita);
@@ -106,13 +76,13 @@ public class ReceitaIngredienteService {
         receitaIngredienteRepository.deleteById(id);;
     }
 
-    public List<ReceitaIngredienteDTOSimples> findAllByIngredienteDescricao(String descricao) {
+    public List<ReceitaIngredienteDTO> findAllByIngredienteDescricao(String descricao) {
         List<ReceitaIngrediente> list = receitaIngredienteRepository.findAllByIngredienteDescricaoContainingIgnoreCase(descricao);
-        return list.stream().map(ReceitaIngredienteDTOSimples::new).toList();
+        return list.stream().map(ReceitaIngredienteDTO::new).toList();
     }
 
-    public List<ReceitaIngredienteDTOSimples> findAllByReceitaId(Long id) {
+    public List<ReceitaIngredienteDTO> findAllByReceitaId(Long id) {
         List<ReceitaIngrediente> list = receitaIngredienteRepository.findAllByReceitaId(id);
-        return list.stream().map(ReceitaIngredienteDTOSimples::new).toList();
+        return list.stream().map(ReceitaIngredienteDTO::new).toList();
     }
 }

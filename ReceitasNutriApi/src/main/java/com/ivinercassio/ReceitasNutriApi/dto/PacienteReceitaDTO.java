@@ -4,16 +4,16 @@ import com.ivinercassio.ReceitasNutriApi.entities.PacienteReceita;
 public class PacienteReceitaDTO {
     
     private Long id;
-    private PacienteDTO paciente;
-    private ReceitaDTO receita;
+    private Long idPaciente;
+    private Long idReceita;
     private String dataFavoritacao;
 
     public PacienteReceitaDTO() {}
 
     public PacienteReceitaDTO(PacienteReceita pacienteReceita) {
         this.id = pacienteReceita.getId();
-        this.paciente = new PacienteDTO(pacienteReceita.getPaciente());
-        this.receita = new ReceitaDTO(pacienteReceita.getReceita());
+        this.idPaciente = pacienteReceita.getPaciente().getId();
+        this.idReceita = pacienteReceita.getReceita().getId();
         this.dataFavoritacao = pacienteReceita.getDataFavoritacao();
     }
 
@@ -21,24 +21,25 @@ public class PacienteReceitaDTO {
         return id;
     }
 
-    public PacienteDTO getPacienteDTO() {
-        return paciente;
+    public Long getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setPacienteDTO(PacienteDTO paciente) {
-        if (paciente == null) 
-            throw new IllegalArgumentException("Paciente não deve ser nulo ou vazio.");
-        this.paciente = paciente;
+    public Long getIdReceita() {
+        return idReceita;
+    }
+    
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public ReceitaDTO getReceitaDTO() {
-        return receita;
+    public void setIdPaciente(Long idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
-    public void setReceitaDTO(ReceitaDTO receita) {
-        if (receita == null) 
-            throw new IllegalArgumentException("Receita não deve ser nulo ou vazio.");
-        this.receita = receita;
+    public void setIdReceita(Long idReceita) {
+        this.idReceita = idReceita;
     }
 
     public String getDataFavoritacao() {

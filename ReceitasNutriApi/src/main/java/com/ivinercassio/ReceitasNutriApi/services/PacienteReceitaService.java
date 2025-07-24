@@ -6,44 +6,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTO;
-import com.ivinercassio.ReceitasNutriApi.dto.PacienteReceitaDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
 import com.ivinercassio.ReceitasNutriApi.entities.PacienteReceita;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 import com.ivinercassio.ReceitasNutriApi.repositories.PacienteReceitaRepository;
+import com.ivinercassio.ReceitasNutriApi.repositories.PacienteRepository;
+import com.ivinercassio.ReceitasNutriApi.repositories.ReceitaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
 public class PacienteReceitaService {
-    
+
     @Autowired
     PacienteReceitaRepository pacienteReceitaRepository;
 
-    public List<PacienteReceitaDTOSimples> findAll() {
+    @Autowired
+    PacienteRepository pacienteRepository;
+
+    @Autowired
+    ReceitaRepository receitaRepository;
+
+    public List<PacienteReceitaDTO> findAll() {
         List<PacienteReceita> list = pacienteReceitaRepository.findAll();
-        return list.stream().map(PacienteReceitaDTOSimples::new).toList();
+        return list.stream().map(PacienteReceitaDTO::new).toList();
     }
 
-    public PacienteReceitaDTO findById (Long id){
+    public PacienteReceitaDTO findById(Long id) {
         PacienteReceita pacienteReceita = pacienteReceitaRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("PacienteReceita não encontrado com ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("PacienteReceita não encontrado com ID: " + id));
         return new PacienteReceitaDTO(pacienteReceita);
     }
 
     // relacionamento estabelecido e enviado pelo servico cliente
     public PacienteReceitaDTO insert(PacienteReceitaDTO pacienteReceitaDTO) {
-        Paciente paciente = new Paciente();
-        paciente.setNome(pacienteReceitaDTO.getPacienteDTO().getNome());
-        paciente.setEmail(pacienteReceitaDTO.getPacienteDTO().getEmail());
+        Paciente paciente = pacienteRepository.findById(pacienteReceitaDTO.getIdPaciente())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Paciente não encontrado com ID: " + pacienteReceitaDTO.getIdPaciente()));
 
-        Receita receita = new Receita();
-        receita.setTitulo(pacienteReceitaDTO.getReceitaDTO().getTitulo());
-        receita.setTempo(pacienteReceitaDTO.getReceitaDTO().getTempo());
-        receita.setRendimento(pacienteReceitaDTO.getReceitaDTO().getRendimento());
-        receita.setNutricionista(null); // TRATAR ISSO
-        receita.setHorario(pacienteReceitaDTO.getReceitaDTO().getHorario());
+        Receita receita = receitaRepository.findById(pacienteReceitaDTO.getIdReceita())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Receita não encontrado com ID: " + pacienteReceitaDTO.getIdReceita()));
 
         PacienteReceita nova = new PacienteReceita();
         nova.setPaciente(paciente);
@@ -54,21 +58,18 @@ public class PacienteReceitaService {
         return new PacienteReceitaDTO(nova);
     }
 
-    public PacienteReceitaDTO update(PacienteReceitaDTO pacienteReceitaDTO, Long id) {   
+    public PacienteReceitaDTO update(PacienteReceitaDTO pacienteReceitaDTO, Long id) {
         PacienteReceita registro = pacienteReceitaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("PacienteReceita não encontrado com ID: " + id));
 
-        Paciente paciente = new Paciente();
-        paciente.setNome(pacienteReceitaDTO.getPacienteDTO().getNome());
-        paciente.setEmail(pacienteReceitaDTO.getPacienteDTO().getEmail());
+        Paciente paciente = pacienteRepository.findById(pacienteReceitaDTO.getIdPaciente())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Paciente não encontrado com ID: " + pacienteReceitaDTO.getIdPaciente()));
 
-        Receita receita = new Receita();
-        receita.setTitulo(pacienteReceitaDTO.getReceitaDTO().getTitulo());
-        receita.setTempo(pacienteReceitaDTO.getReceitaDTO().getTempo());
-        receita.setRendimento(pacienteReceitaDTO.getReceitaDTO().getRendimento());
-        receita.setNutricionista(null); // TRATAR ISSO
-        receita.setHorario(pacienteReceitaDTO.getReceitaDTO().getHorario());
-
+        Receita receita = receitaRepository.findById(pacienteReceitaDTO.getIdReceita())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Receita não encontrado com ID: " + pacienteReceitaDTO.getIdReceita()));
+                        
         registro.setPaciente(paciente);
         registro.setReceita(receita);
         registro.setDataFavoritacao(pacienteReceitaDTO.getDataFavoritacao());
@@ -82,11 +83,12 @@ public class PacienteReceitaService {
         if (!pacienteReceitaRepository.existsById(id))
             throw new IllegalArgumentException("PacienteReceita não encontrado com ID: " + id);
         // deletar os dados do pacienteReceita
-        pacienteReceitaRepository.deleteById(id);;
+        pacienteReceitaRepository.deleteById(id);
+        ;
     }
-    
-    public List<PacienteReceitaDTOSimples> buscarReceitasPorPaciente(Long id) {
+
+    public List<PacienteReceitaDTO> buscarReceitasPorPaciente(Long id) {
         List<PacienteReceita> list = pacienteReceitaRepository.findAllByPacienteId(id);
-        return list.stream().map(PacienteReceitaDTOSimples::new).toList();
+        return list.stream().map(PacienteReceitaDTO::new).toList();
     }
 }

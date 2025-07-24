@@ -70,7 +70,7 @@ public class SecurityConfig {
 
                         // Regras de para Ingredientes
                         .requestMatchers(HttpMethod.GET, "/ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/ingredientes/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/ingredientes/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/ingredientes/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/ingredientes/**").hasRole("ADMIN")

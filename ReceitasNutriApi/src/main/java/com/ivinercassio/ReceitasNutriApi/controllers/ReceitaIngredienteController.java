@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTO;
-import com.ivinercassio.ReceitasNutriApi.dto.ReceitaIngredienteDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.services.ReceitaIngredienteService;
 
 @RestController
@@ -25,8 +24,8 @@ public class ReceitaIngredienteController {
     ReceitaIngredienteService receitaIngredienteService;
 
     @GetMapping("")
-    public ResponseEntity<List<ReceitaIngredienteDTOSimples>> findAll() {
-        List<ReceitaIngredienteDTOSimples> list = receitaIngredienteService.findAll();
+    public ResponseEntity<List<ReceitaIngredienteDTO>> findAll() {
+        List<ReceitaIngredienteDTO> list = receitaIngredienteService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
@@ -55,14 +54,14 @@ public class ReceitaIngredienteController {
     }
 
     @GetMapping("/ingrediente/{descricao}")
-    public ResponseEntity<List<ReceitaIngredienteDTOSimples>> findAllByIngredienteDescricao(@PathVariable String descricao) {
-        List<ReceitaIngredienteDTOSimples> list = receitaIngredienteService.findAllByIngredienteDescricao(descricao);
+    public ResponseEntity<List<ReceitaIngredienteDTO>> findAllByIngredienteDescricao(@PathVariable String descricao) {
+        List<ReceitaIngredienteDTO> list = receitaIngredienteService.findAllByIngredienteDescricao(descricao);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/receita/{id}")
-    public ResponseEntity<List<ReceitaIngredienteDTOSimples>> findAllByReceitaId(@PathVariable Long id) {
-        List<ReceitaIngredienteDTOSimples> list = receitaIngredienteService.findAllByReceitaId(id);
+    public ResponseEntity<List<ReceitaIngredienteDTO>> findAllByReceitaId(@PathVariable Long id) {
+        List<ReceitaIngredienteDTO> list = receitaIngredienteService.findAllByReceitaId(id);
         return ResponseEntity.ok().body(list);
     }
 }

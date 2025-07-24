@@ -9,6 +9,7 @@ import com.ivinercassio.ReceitasNutriApi.dto.ConsumoDTO;
 import com.ivinercassio.ReceitasNutriApi.entities.Consumo;
 import com.ivinercassio.ReceitasNutriApi.entities.Paciente;
 import com.ivinercassio.ReceitasNutriApi.repositories.ConsumoRepository;
+import com.ivinercassio.ReceitasNutriApi.repositories.PacienteRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,6 +19,9 @@ public class ConsumoService {
     
     @Autowired
     ConsumoRepository consumoRepository;
+
+    @Autowired
+    PacienteRepository pacienteRepository;
 
     public List<ConsumoDTO> findAll() {
         List<Consumo> list = consumoRepository.findAll();
@@ -30,10 +34,7 @@ public class ConsumoService {
     }
 
     public ConsumoDTO insert(ConsumoDTO consumoDTO) {
-        Paciente paciente = new Paciente();
-        paciente.setId(consumoDTO.getPaciente().getId());
-        paciente.setNome(consumoDTO.getPaciente().getNome());
-        paciente.setEmail(consumoDTO.getPaciente().getEmail());
+        Paciente paciente = pacienteRepository.findById(consumoDTO.getIdPaciente()).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com ID: " + consumoDTO.getIdPaciente()));
 
         Consumo novo = new Consumo();
         novo.setId(consumoDTO.getId());
@@ -48,10 +49,7 @@ public class ConsumoService {
         Consumo registro = consumoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Consumo não encontrado com ID: " + id));
 
-        Paciente paciente = new Paciente();
-        paciente.setId(consumoDTO.getPaciente().getId());
-        paciente.setNome(consumoDTO.getPaciente().getNome());
-        paciente.setEmail(consumoDTO.getPaciente().getEmail());
+        Paciente paciente = pacienteRepository.findById(consumoDTO.getIdPaciente()).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com ID: " + consumoDTO.getIdPaciente()));
 
         registro.setPaciente(paciente);
         registro.setDataHora(consumoDTO.getDataHora());

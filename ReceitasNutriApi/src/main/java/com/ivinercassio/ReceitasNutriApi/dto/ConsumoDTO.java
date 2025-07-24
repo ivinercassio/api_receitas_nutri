@@ -4,14 +4,14 @@ import com.ivinercassio.ReceitasNutriApi.entities.Consumo;
 
 public class ConsumoDTO {
     private Long id;
-    private PacienteDTO paciente;
+    private Long idPaciente;
     private String dataHora;
 
     public ConsumoDTO() {}
 
     public ConsumoDTO(Consumo consumo) {
         this.id = consumo.getId();
-        this.paciente = new PacienteDTO(consumo.getPaciente());
+        this.idPaciente = consumo.getPaciente().getId();
         this.dataHora = consumo.getDataHora();
     }
 
@@ -19,18 +19,16 @@ public class ConsumoDTO {
         return id;
     }
 
-    public PacienteDTO getPaciente() {
-        return paciente;
+    public Long getIdPaciente() {
+        return idPaciente;
     }
 
     public String getDataHora() {
         return dataHora;
     }
 
-    public void setPaciente(PacienteDTO paciente) {
-        if (paciente == null) 
-            throw new IllegalArgumentException("Paciente não deve ser nulo ou vazio.");
-        this.paciente = paciente;
+    public void setIdPaciente(Long id) {
+        this.idPaciente = id;
     }
 
     public void setDataHora(String dataHora) {

@@ -93,7 +93,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/consumos/**").hasRole("ADMIN")
 
                         // Regras de para Paciente Receita
-                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pacientes-receitas/{id}").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/pacientes-receitas").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/pacientes-receitas/**").hasAnyRole("PACIENTE", "ADMIN")

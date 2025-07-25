@@ -4,14 +4,14 @@ import com.ivinercassio.ReceitasNutriApi.entities.Consumo;
 
 public class ConsumoDTO {
     private Long id;
-    private Long idPaciente;
+    private Long idPacienteReceita;
     private String dataHora;
 
     public ConsumoDTO() {}
 
     public ConsumoDTO(Consumo consumo) {
         this.id = consumo.getId();
-        this.idPaciente = consumo.getPaciente().getId();
+        this.idPacienteReceita = consumo.getPacienteReceita().getId();
         this.dataHora = consumo.getDataHora();
     }
 
@@ -19,16 +19,16 @@ public class ConsumoDTO {
         return id;
     }
 
-    public Long getIdPaciente() {
-        return idPaciente;
+    public Long getIdPacienteReceita() {
+        return idPacienteReceita;
     }
 
     public String getDataHora() {
         return dataHora;
     }
 
-    public void setIdPaciente(Long id) {
-        this.idPaciente = id;
+    public void setIdPacienteReceita(Long id) {
+        this.idPacienteReceita = id;
     }
 
     public void setDataHora(String dataHora) {

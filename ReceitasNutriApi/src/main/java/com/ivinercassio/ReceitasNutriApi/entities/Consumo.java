@@ -18,8 +18,8 @@ public class Consumo {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id") // coluna da tabela que referencia o paciente
-    private Paciente paciente;
+    @JoinColumn(name = "pacienteReceita_id") // coluna da tabela que referencia o paciente receita
+    private PacienteReceita pacienteR;
 
     @Column(name = "datahora_consumo", nullable = false)
     private String dataHora;
@@ -27,8 +27,8 @@ public class Consumo {
 
     public Consumo() {}
 
-    public Consumo(Paciente paciente, String dataHora) {
-        this.paciente = paciente;
+    public Consumo(PacienteReceita paciente, String dataHora) {
+        this.pacienteR = paciente;
         this.dataHora = dataHora;
     }
 
@@ -36,8 +36,8 @@ public class Consumo {
         return id;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public PacienteReceita getPacienteReceita() {
+        return this.pacienteR;
     }
 
     public String getDataHora() {
@@ -48,8 +48,8 @@ public class Consumo {
         this.dataHora = dataHora;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setPacienteReceita(PacienteReceita paciente) {
+        this.pacienteR = paciente;
     }
 
     public void setId(Long id) {

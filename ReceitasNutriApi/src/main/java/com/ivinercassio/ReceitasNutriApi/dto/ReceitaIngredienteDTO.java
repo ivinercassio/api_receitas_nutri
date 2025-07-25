@@ -5,16 +5,16 @@ import com.ivinercassio.ReceitasNutriApi.entities.ReceitaIngrediente;
 public class ReceitaIngredienteDTO {
     
     private Long id;
-    private ReceitaDTO receita;
-    private IngredienteDTO ingrediente;
+    private Long idReceita;
+    private Long idIngrediente;
     private String quantidade;
 
     public ReceitaIngredienteDTO() {}
 
     public ReceitaIngredienteDTO(ReceitaIngrediente receitaIngrediente) {
         this.id = receitaIngrediente.getId();
-        this.receita = new ReceitaDTO(receitaIngrediente.getReceita());
-        this.ingrediente = new IngredienteDTO(receitaIngrediente.getIngrediente());
+        this.idReceita = receitaIngrediente.getReceita().getId();
+        this.idIngrediente = receitaIngrediente.getIngrediente().getId();
         this.quantidade = receitaIngrediente.getQuantidade();
     }
 
@@ -22,24 +22,24 @@ public class ReceitaIngredienteDTO {
         return id;
     }
 
-    public IngredienteDTO getIngredienteDTO() {
-        return ingrediente;
+    public Long getIdIngrediente() {
+        return idIngrediente;
     }
 
-    public void setIngredienteDTO(IngredienteDTO ingrediente) {
-        if (ingrediente == null) 
-            throw new IllegalArgumentException("Ingrediente não deve ser nulo ou vazio.");
-        this.ingrediente = ingrediente;
+    public Long getIdReceita() {
+        return idReceita;
     }
 
-    public ReceitaDTO getReceitaDTO() {
-        return receita;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setReceitaDTO(ReceitaDTO receita) {
-        if (receita == null) 
-            throw new IllegalArgumentException("Receita não deve ser nulo ou vazio.");
-        this.receita = receita;
+    public void setIdIngrediente(Long idIngrediente) {
+        this.idIngrediente = idIngrediente;
+    }
+
+    public void setIdReceita(Long idReceita) {
+        this.idReceita = idReceita;
     }
 
     public String getQuantidade() {

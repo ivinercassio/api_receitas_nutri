@@ -9,4 +9,5 @@ import com.ivinercassio.ReceitasNutriApi.entities.ReceitaIngrediente;
 public interface ReceitaIngredienteRepository extends JpaRepository<ReceitaIngrediente, Long> {
     
     public List<ReceitaIngrediente> findAllByIngredienteDescricaoContainingIgnoreCase(String descricao);
+    public List<ReceitaIngrediente> findAllByReceitaId(Long id);
 }

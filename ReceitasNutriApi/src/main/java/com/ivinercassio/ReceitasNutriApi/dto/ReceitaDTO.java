@@ -5,7 +5,7 @@ import com.ivinercassio.ReceitasNutriApi.entities.Receita;
 
 public class ReceitaDTO {
     private Long id;
-    private NutricionistaDTO nutricionista; 
+    private Long idNutricionista; 
     private String titulo;  
     private int rendimento;
     private double tempo;
@@ -16,7 +16,7 @@ public class ReceitaDTO {
 
     public ReceitaDTO(Receita receita) {
         this.id = receita.getId();
-        this.nutricionista = new NutricionistaDTO(receita.getNutricionista());
+        this.idNutricionista = receita.getNutricionista().getId();
         this.titulo = receita.getTitulo();
         this.rendimento = receita.getRendimento();
         this.tempo = receita.getTempo();
@@ -28,14 +28,12 @@ public class ReceitaDTO {
         return id;
     }
 
-    public NutricionistaDTO getNutricionistaDTO() {
-        return nutricionista;
+    public Long getIdNutricionista() {
+        return idNutricionista;
     }
 
-    public void setNutricionistaDTO(NutricionistaDTO nutricionista) {
-        if (nutricionista == null)
-            throw new IllegalArgumentException("Nutricionista não deve ser nula ou vazia");
-        this.nutricionista = nutricionista;
+    public void setIdNutricionista(Long id) {
+        this.idNutricionista = id;
     }
 
     public String getTitulo() {

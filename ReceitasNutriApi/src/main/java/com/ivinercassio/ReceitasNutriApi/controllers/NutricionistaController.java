@@ -34,22 +34,28 @@ public class NutricionistaController {
         NutricionistaDTO nutricionista = nutricionistaService.findById(id);
         return ResponseEntity.ok().body(nutricionista);
     }
-
+    
     @PostMapping("") 
     public ResponseEntity<NutricionistaDTO> insert(@RequestBody NutricionistaDTO nutricionista) {
         NutricionistaDTO salvo = nutricionistaService.insert(nutricionista);
         return ResponseEntity.status(201).body(salvo);
     }
-
+    
     @PutMapping("/{id}")
     public ResponseEntity<NutricionistaDTO> update(@RequestBody NutricionistaDTO nutricionista, @PathVariable Long id) {
         NutricionistaDTO alterado = nutricionistaService.update(nutricionista, id);
         return ResponseEntity.ok().body(alterado);
     }
-
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         nutricionistaService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<NutricionistaDTO> findByEmail(@PathVariable String email) {
+        NutricionistaDTO nutricionista = nutricionistaService.findByEmail(email);
+        return ResponseEntity.ok().body(nutricionista);
     }
 }

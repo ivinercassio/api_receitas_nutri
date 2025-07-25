@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTO;
-import com.ivinercassio.ReceitasNutriApi.dto.ReceitaDTOSimples;
 import com.ivinercassio.ReceitasNutriApi.entities.Nutricionista;
 import com.ivinercassio.ReceitasNutriApi.entities.Receita;
+import com.ivinercassio.ReceitasNutriApi.repositories.NutricionistaRepository;
 import com.ivinercassio.ReceitasNutriApi.repositories.ReceitaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -19,10 +19,13 @@ public class ReceitaService {
     
     @Autowired
     ReceitaRepository receitaRepository;
+    
+    @Autowired
+    NutricionistaRepository nutriRepository;
 
-    public List<ReceitaDTOSimples> findAll() {
+    public List<ReceitaDTO> findAll() {
         List<Receita> list = receitaRepository.findAll();
-        return list.stream().map(ReceitaDTOSimples::new).toList();
+        return list.stream().map(ReceitaDTO::new).toList();
     }
 
     public ReceitaDTO findById (Long id){
@@ -34,13 +37,7 @@ public class ReceitaService {
         if (receitaRepository.existsByTitulo(receitaDTO.getTitulo()))
             throw new IllegalArgumentException("A Receita já está cadastrado.");
 
-        Nutricionista nutri = new Nutricionista();
-        nutri.setId(receitaDTO.getNutricionistaDTO().getId());
-        nutri.setNome(receitaDTO.getNutricionistaDTO().getNome());
-        nutri.setEmail(receitaDTO.getNutricionistaDTO().getEmail());
-        nutri.setEmailContato(receitaDTO.getNutricionistaDTO().getEmailContato());
-        nutri.setIntagram(receitaDTO.getNutricionistaDTO().getInstagram());
-        nutri.setTelefone(receitaDTO.getNutricionistaDTO().getTelefone());
+        Nutricionista nutri = nutriRepository.findById(receitaDTO.getIdNutricionista()).orElseThrow(() -> new EntityNotFoundException("Nutricionista não encontrada com ID: " + receitaDTO.getIdNutricionista()));
 
         Receita nova = new Receita();
         nova.setTitulo(receitaDTO.getTitulo());
@@ -58,13 +55,7 @@ public class ReceitaService {
         Receita registro = receitaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Receita não encontrado com ID: " + id));
 
-        Nutricionista nutri = new Nutricionista();
-        nutri.setNome(receitaDTO.getNutricionistaDTO().getNome());
-        nutri.setEmail(receitaDTO.getNutricionistaDTO().getEmail());
-        nutri.setEmailContato(receitaDTO.getNutricionistaDTO().getEmailContato());
-        nutri.setIntagram(receitaDTO.getNutricionistaDTO().getInstagram());
-        nutri.setTelefone(receitaDTO.getNutricionistaDTO().getTelefone());
-        nutri.setId(receitaDTO.getNutricionistaDTO().getId());
+        Nutricionista nutri = nutriRepository.findById(receitaDTO.getIdNutricionista()).orElseThrow(() -> new EntityNotFoundException("Nutricionista não encontrada com ID: " + receitaDTO.getIdNutricionista()));
 
         registro.setTitulo(receitaDTO.getTitulo());
         registro.setTempo(receitaDTO.getTempo());
@@ -84,8 +75,8 @@ public class ReceitaService {
         receitaRepository.deleteById(id);;
     }
 
-    public List<ReceitaDTOSimples> buscarReceitasPorNutricionista(Long id) {
+    public List<ReceitaDTO> buscarReceitasPorNutricionista(Long id) {
         List<Receita> list = receitaRepository.findAllByNutricionistaId(id);
-        return list.stream().map(ReceitaDTOSimples::new).toList();
+        return list.stream().map(ReceitaDTO::new).toList();
     }
 }

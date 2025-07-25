@@ -61,4 +61,10 @@ public class PacienteService {
         // deletar os dados do paciente
         pacienteRepository.deleteById(id);;
     }
+
+    public PacienteDTO findByEmail(String email){
+        Paciente paciente = pacienteRepository.findByEmail(email);
+        return new PacienteDTO(paciente);
+    }
+    
 }

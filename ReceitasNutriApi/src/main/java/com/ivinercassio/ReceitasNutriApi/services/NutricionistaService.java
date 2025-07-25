@@ -28,10 +28,10 @@ public class NutricionistaService {
                 .orElseThrow(() -> new EntityNotFoundException("Nutricionista não encontrado com ID: " + id));
         return new NutricionistaDTO(nutricionista);
     }
-
+    
     public NutricionistaDTO insert(NutricionistaDTO nutricionistaDTO) {
         if (nutricionistaRepository.existsByEmail(nutricionistaDTO.getEmail()))
-            throw new IllegalArgumentException("O E-mail já está cadastrado.");
+        throw new IllegalArgumentException("O E-mail já está cadastrado.");
         
         Nutricionista novo = new Nutricionista();
         novo.setNome(nutricionistaDTO.getNome());
@@ -44,25 +44,30 @@ public class NutricionistaService {
         novo = nutricionistaRepository.save(novo);
         return new NutricionistaDTO(novo);
     }
-
+    
     public NutricionistaDTO update(NutricionistaDTO nutricionistaDTO, Long id) {        
         Nutricionista nutricionista = nutricionistaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Nutricionista não encontrado com ID: " + id));
-
+        
         // verifica ao alterar o email
         if (!nutricionista.getEmail().equals(nutricionistaDTO.getEmail()) && nutricionistaRepository.existsByEmail(nutricionistaDTO.getEmail()))
-            throw new IllegalArgumentException("O E-mail já está cadastrado.");
+        throw new IllegalArgumentException("O E-mail já está cadastrado.");
         
         nutricionista.setEmail(nutricionistaDTO.getEmail());
         nutricionista.setNome(nutricionistaDTO.getNome());
         nutricionista = nutricionistaRepository.save(nutricionista);
         return new NutricionistaDTO(nutricionista);
     }
-
+    
     @Transactional
     public void delete(Long id) {
         if (!nutricionistaRepository.existsById(id))
-            throw new IllegalArgumentException("Nutricionista não encontrado com ID: " + id);
+        throw new IllegalArgumentException("Nutricionista não encontrado com ID: " + id);
         // deletar os dados do nutricionista
         nutricionistaRepository.deleteById(id);;
+    }
+
+    public NutricionistaDTO findByEmail(String email){
+        Nutricionista nutricionista = nutricionistaRepository.findByEmail(email);
+        return new NutricionistaDTO(nutricionista);
     }
 }

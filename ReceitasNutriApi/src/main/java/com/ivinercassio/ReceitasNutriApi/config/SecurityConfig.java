@@ -82,7 +82,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/receitas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/receitas/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/receitas/**").hasAnyRole("ADMIN", "NUTRICIONISTA")
 
                         // Regras de para Consumos
                         .requestMatchers(HttpMethod.GET, "/consumos/{id}")

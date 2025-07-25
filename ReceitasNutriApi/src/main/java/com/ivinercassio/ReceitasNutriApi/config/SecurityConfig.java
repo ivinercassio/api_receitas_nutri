@@ -99,7 +99,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/pacientes-receitas/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/pacientes-receitas/paciente/{pacienteId}")
                         .hasAnyRole("NUTRICIONISTA", "PACIENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/pacientes-receitas/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/pacientes-receitas/**").hasAnyRole("ADMIN", "PACIENTE")
 
                         // Regras de para Receita Ingrediente
                         .requestMatchers(HttpMethod.GET, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
@@ -110,7 +110,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/receitas-ingredientes/**")
                         .hasAnyRole("NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/receitas-ingredientes/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/receitas-ingredientes/**").hasAnyRole("ADMIN", "NUTRICIONISTA")
 
                         // Todos os outros endpoints exigem autenticação
                         .anyRequest().authenticated())

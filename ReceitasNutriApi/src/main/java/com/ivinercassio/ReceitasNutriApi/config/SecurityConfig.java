@@ -53,60 +53,60 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 
                         // Regras de para Nutricionista
-                        .requestMatchers(HttpMethod.GET, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/nutricionistas/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/nutricionistas/email/{email}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/nutricionistas/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/nutricionistas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/nutricionistas/**").hasRole("ADMIN")
 
                         // Regras de para Paciente
-                        .requestMatchers(HttpMethod.GET, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/pacientes/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pacientes/email/{email}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/pacientes/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/pacientes/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/pacientes/**").hasRole("ADMIN")
 
                         // Regras de para Ingredientes
-                        .requestMatchers(HttpMethod.GET, "/ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/ingredientes/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/ingredientes/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/ingredientes/**").hasRole("ADMIN")
 
                         // Regras de para Receitas
-                        .requestMatchers(HttpMethod.GET, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/receitas/nutricionista/{nutricionistaId}")
+                        .hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/receitas/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/receitas").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/receitas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/receitas/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/receitas/nutricionista/{nutricionistaId}")
-                        .hasAnyRole("NUTRICIONISTA", "ADMIN")
 
                         // Regras de para Consumos
-                        .requestMatchers(HttpMethod.GET, "/consumos").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/consumos/{id}")
                         .hasAnyRole("PACIENTE", "NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/consumos").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/consumos").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/consumos/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/consumos/**").hasRole("ADMIN")
 
                         // Regras de para Paciente Receita
-                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas/{id}").hasAnyRole("PACIENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/pacientes-receitas").hasAnyRole("PACIENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/pacientes-receitas/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/pacientes-receitas/paciente/{pacienteId}")
                         .hasAnyRole("NUTRICIONISTA", "PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas/{id}").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes-receitas").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/pacientes-receitas").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/pacientes-receitas/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/pacientes-receitas/**").hasAnyRole("ADMIN", "PACIENTE")
 
                         // Regras de para Receita Ingrediente
-                        .requestMatchers(HttpMethod.GET, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/{id}")
-                        .hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/ingrediente/{descricao}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/receita/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/receitas-ingredientes/{id}")
+                        .hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/receitas-ingredientes").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/receitas-ingredientes/**")
                         .hasAnyRole("NUTRICIONISTA", "ADMIN")

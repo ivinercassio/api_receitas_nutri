@@ -38,6 +38,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                
+                
                 .cors() // habilita CORS
                 .and()
                 // Desabilita verificacao CSRF para permitir POST com token JWT
@@ -114,6 +116,8 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions().disable()) // Para H2 Console
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .requestMatchers("/", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest().authenticated();
         return http.build();
     }
 

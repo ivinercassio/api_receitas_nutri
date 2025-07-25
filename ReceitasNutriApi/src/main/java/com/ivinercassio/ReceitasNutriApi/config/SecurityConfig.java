@@ -111,13 +111,15 @@ public class SecurityConfig {
                         .hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/receitas-ingredientes/**").hasRole("ADMIN")
 
+                        .requestMatchers("/", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
                         // Todos os outros endpoints exigem autenticação
                         .anyRequest().authenticated())
                 .headers(headers -> headers.frameOptions().disable()) // Para H2 Console
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-                .requestMatchers("/", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated();
+                
+                
         return http.build();
     }
 

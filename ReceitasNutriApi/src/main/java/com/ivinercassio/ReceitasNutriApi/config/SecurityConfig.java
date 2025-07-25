@@ -64,7 +64,7 @@ public class SecurityConfig {
 
                         // Regras de para Paciente
                         .requestMatchers(HttpMethod.GET, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/pacientes/{id}").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pacientes/email/{email}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/pacientes/**").hasAnyRole("PACIENTE", "ADMIN")

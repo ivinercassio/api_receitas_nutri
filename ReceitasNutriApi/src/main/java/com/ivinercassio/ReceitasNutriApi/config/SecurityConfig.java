@@ -56,7 +56,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/nutricionistas/email/{email}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/nutricionistas/{id}").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/nutricionistas").hasAnyRole("NUTRICIONISTA", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/nutricionistas").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/nutricionistas/**").hasAnyRole("NUTRICIONISTA", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/nutricionistas/**").hasRole("ADMIN")
 
@@ -64,7 +64,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/pacientes/email/{email}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pacientes/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/pacientes").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/pacientes").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/pacientes/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/pacientes/**").hasRole("ADMIN")
 
@@ -85,9 +85,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/receitas/**").hasAnyRole("ADMIN", "NUTRICIONISTA")
 
                         // Regras de para Consumos
-                        .requestMatchers(HttpMethod.GET, "/consumos/{id}")
-                        .hasAnyRole("PACIENTE", "NUTRICIONISTA", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/consumos").hasAnyRole("PACIENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/consumos/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/consumos").permitAll()
                         .requestMatchers(HttpMethod.POST, "/consumos").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/consumos/**").hasAnyRole("PACIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/consumos/**").hasRole("ADMIN")

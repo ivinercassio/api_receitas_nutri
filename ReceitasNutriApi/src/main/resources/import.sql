@@ -31,8 +31,6 @@ INSERT INTO tb_receita_ingrediente (receita_id, ingrediente_id, quantidade) VALU
 -- PACIENTE_RECEITA
 INSERT INTO tb_paciente_receita (paciente_id, receita_id, data_favoritacao) VALUES (1, 1, '2025-07-10'), (2, 2, '2025-07-11'), (3, 3, '2025-07-12'), (2, 1, '2025-07-13'), (3, 2, '2025-07-14'); 
 
--- CONSUMO 
-INSERT INTO tb_consumo (paciente_id, datahora_consumo) VALUES (1, '2025-07-14 08:30:00'), (2, '2025-07-14 12:15:00'), (3, '2025-07-14 19:45:00'); 
 
 
 

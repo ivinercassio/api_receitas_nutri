@@ -16,7 +16,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class ConsumoService {
-    
+
     @Autowired
     ConsumoRepository consumoRepository;
 
@@ -28,13 +28,16 @@ public class ConsumoService {
         return list.stream().map(ConsumoDTO::new).toList();
     }
 
-    public ConsumoDTO findById (Long id){
-        Consumo consumo = consumoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Consumo não encontrado com ID: " + id));
+    public ConsumoDTO findById(Long id) {
+        Consumo consumo = consumoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Consumo não encontrado com ID: " + id));
         return new ConsumoDTO(consumo);
     }
 
     public ConsumoDTO insert(ConsumoDTO consumoDTO) {
-        PacienteReceita pacienteR = pacienteReceitaRepository.findById(consumoDTO.getIdPacienteReceita()).orElseThrow(() -> new EntityNotFoundException("Paciente-Receita não encontrado com ID: " + consumoDTO.getIdPacienteReceita()));
+        PacienteReceita pacienteR = pacienteReceitaRepository.findById(consumoDTO.getIdPacienteReceita())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Paciente-Receita não encontrado com ID: " + consumoDTO.getIdPacienteReceita()));
 
         Consumo novo = new Consumo();
         novo.setId(consumoDTO.getId());
@@ -45,11 +48,13 @@ public class ConsumoService {
         return new ConsumoDTO(novo);
     }
 
-    public ConsumoDTO update(ConsumoDTO consumoDTO, Long id) {   
+    public ConsumoDTO update(ConsumoDTO consumoDTO, Long id) {
         Consumo registro = consumoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Consumo não encontrado com ID: " + id));
 
-        PacienteReceita pacienteR = pacienteReceitaRepository.findById(consumoDTO.getIdPacienteReceita()).orElseThrow(() -> new EntityNotFoundException("Paciente-Receita não encontrado com ID: " + consumoDTO.getIdPacienteReceita()));
+        PacienteReceita pacienteR = pacienteReceitaRepository.findById(consumoDTO.getIdPacienteReceita())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Paciente-Receita não encontrado com ID: " + consumoDTO.getIdPacienteReceita()));
 
         registro.setPacienteReceita(pacienteR);
         registro.setDataHora(consumoDTO.getDataHora());
@@ -63,7 +68,8 @@ public class ConsumoService {
         if (!consumoRepository.existsById(id))
             throw new IllegalArgumentException("Consumo não encontrado com ID: " + id);
         // deletar os dados do consumo
-        consumoRepository.deleteById(id);;
+        consumoRepository.deleteById(id);
+        ;
     }
 
 }
